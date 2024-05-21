@@ -1,0 +1,40 @@
+{
+    "name": "league/pipeline",
+    "description": "A plug and play pipeline implementation.",
+    "keywords": [
+        "pipeline", "pattern", "sequential", "composition", "design pattern"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Frank de Jonge",
+            "email": "info@frenky.net",
+            "role": "Author"
+        },
+        {
+            "name": "Woody Gilk",
+            "email": "woody.gilk@gmail.com",
+            "role": "Maintainer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "League\\Pipeline\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "League\\Pipeline\\Stub\\": "stub"
+        }
+    },
+    "require": {
+        "php": ">=7.1"
+    },
+    "scripts": {
+        "test": "phpspec run"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^4.3",
+        "leanphp/phpspec-code-coverage": "^4.2"
+    }
+}
