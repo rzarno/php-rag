@@ -2,19 +2,21 @@
 
 use service\Encoder;
 
-require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
-$apiKey = 'XXX';
+const CONTEXT_TOKEN_COUNT = 1000;
+
+$apiKey = file_get_contents('api_key.txt');
 
 $client = OpenAI::Client($apiKey);
-$model = 'gpt-3.5-turbo-instructs';
+$model = 'gpt-4o';
 
 $documents = []; //TODO add documents and process
 
 $input = '';
-$prompt = '';//TODO add prompt
+$prompt = 'What is the result of 2 + 2?';//TODO add prompt
 $encoder = new Encoder(); //TODO implement encoder
-$contextTokenCount = (integer)$_ENV['CONTEXT_TOKEN_COUNT'] - count($encoder->encode($prompt)) - 20;
+$contextTokenCount = CONTEXT_TOKEN_COUNT - count($encoder->encode($prompt)) - 20;
 
 foreach($documents as $document) {
     $input .= $document . PHP_EOL;
@@ -26,11 +28,10 @@ foreach($documents as $document) {
     }
 }
 
-$input .= PHP_EOL . PHP_EOL . "### Instruction: " . PHP_EOL . $prompt . PHP_EOL . "### Response: " . PHP_EOL;
+$input .= "\n\n##### INPUT: \n"  . $prompt . "\n##### RESPONSE:\n";
 
-
-$response = $this->client->chat()->create([
-    'model' => $this->model,
+$response = $client->chat()->create([
+    'model' => $model,
     'messages' => [
         [
             'content' => $input,
@@ -38,3 +39,7 @@ $response = $this->client->chat()->create([
         ]
     ]
 ]);
+
+echo $input;
+echo $response->choices[0]->message->content;
+echo "\n";
