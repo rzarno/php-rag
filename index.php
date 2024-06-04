@@ -1,5 +1,6 @@
 <?php
 
+use Rajentrivedi\TokenizerX\TokenizerX;
 use service\Encoder;
 
 require __DIR__ . '/vendor/autoload.php';
@@ -14,17 +15,24 @@ if (! $prompt) {
 $client = OpenAI::Client($apiKey);
 $model = 'gpt-4o';
 
-$documents = []; //TODO add documents and process
+#load documents
+$path    = 'documents';
+$files = scandir($path);
+$files = array_diff(scandir($path), array('.', '..'));
+$documents = [];
+foreach($files as $file) {
+    $document = file_get_contents($path . '/' . $file);
+    $documents[] = $document;
+}
 
-$encoder = new Encoder(); //TODO implement encoder
-$contextTokenCount = CONTEXT_TOKEN_COUNT - count($encoder->encode($prompt)) - 20;
+#prpare RAG input
+$contextTokenCount = CONTEXT_TOKEN_COUNT - TokenizerX::count($prompt) - 20;
 $input = '';
 foreach($documents as $document) {
-    $input .= $document . PHP_EOL;
-    $tokens = $encoder->encode($input);
+    $input .= $document . "\n";
+    $tokens = TokenizerX::tokens($input, "gpt-4");
 
     if (count($tokens) > $contextTokenCount) {
-        $input = $encoder->decode(array_slice($tokens, 0, $contextTokenCount));
         break;
     }
 }

@@ -4,7 +4,8 @@
         "league/pipeline": "^1.0",
         "openai-php/client": "^0.7.4",
         "symfony/http-client": "^6.4",
-        "nyholm/psr7": "^1.8"
+        "nyholm/psr7": "^1.8",
+        "rajentrivedi/tokenizer-x": "^1.0"
     },
     "autoload": {
         "psr-0": {
