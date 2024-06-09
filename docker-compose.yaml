@@ -17,18 +17,20 @@ services:
     networks:
       app-env:
 
+
   postgres:
+    hostname: postgres
     image: ankane/pgvector
-    container_name: postgres 
+    restart: always
     env_file:
       - ./env
     volumes:
-      - ./script/:/docker-entrypoint-initdb.d
-      - psql-data:/var/lib/postgresql/data
+      - ./script/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       app-env:
       interface:
-  
+
+
   pgadmin:
     image: fenglc/pgadmin4
     container_name: pgadmin
