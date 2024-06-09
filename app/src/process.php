@@ -24,7 +24,7 @@ $apiKey = file_get_contents('api_key.txt');
 $client = OpenAI::Client($apiKey);
 $model = 'gpt-4o';
 
-$statement = $conn->prepare(file_get_contents('script/CreateTable.sql'));
+$statement = $conn->prepare('CREATE TABLE IF NOT EXISTS document (id serial PRIMARY KEY, text text)');
 $statement->execute();
 
 #load documents

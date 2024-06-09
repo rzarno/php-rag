@@ -18,7 +18,7 @@ services:
       app-env:
 
   postgres:
-    image: postgres:16.0
+    image: ankane/pgvector
     container_name: postgres 
     env_file:
       - ./env
