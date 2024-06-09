@@ -61,6 +61,10 @@ $response = $client->chat()->create([
         ]
     ]
 ]);
-
+echo "<h1>DOCUMENTS:</h1>";
+echo "<br /><br />";
 echo $input;
+echo "<br /><br /><br /><br />";
+echo "<h1>RESPONSE:</h1>";
+echo "<br /><br />";
 echo $response->choices[0]->message->content;
