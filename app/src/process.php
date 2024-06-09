@@ -5,7 +5,14 @@ try {
     die('Connection failed: ' . $e->getMessage());
 }
 
-$prompt = $_POST['prompt'];
+#get prompt from POST or CLI or create default "2+2="
+$prompt = $_POST['prompt'] ?? null;
+if (! $prompt) {
+    $prompt = $argv[0] ?? null;
+}
+if (! $prompt) {
+    $prompt = 'What is the result of 2 + 2?';
+}
 
 use Rajentrivedi\TokenizerX\TokenizerX;
 
@@ -13,12 +20,12 @@ require __DIR__ . '/vendor/autoload.php';
 
 const CONTEXT_TOKEN_COUNT = 1000;
 $apiKey = file_get_contents('api_key.txt');
-if (! $prompt) {
-    $prompt = 'What is the result of 2 + 2?';
-}
 
 $client = OpenAI::Client($apiKey);
 $model = 'gpt-4o';
+
+$statement = $conn->prepare(file_get_contents('script/CreateTable.sql'));
+$statement->execute();
 
 #load documents
 $path    = 'documents';
@@ -28,18 +35,13 @@ $documents = [];
 foreach($files as $file) {
     $document = file_get_contents($path . '/' . $file);
     $documents[] = $document;
+
+    #load documents to postgres database
+    $statement = $conn->prepare("INSERT INTO document(text) VALUES(:doc)");
+    $statement->execute(array(
+        "doc" => $document
+    ));
 }
-
-# Prepare RAG input using DB
-//$statement = $conn->prepare("INSERT INTO employees(first_name, last_name, department, email)
-//    VALUES(:fname, :lname, :department, :email)");
-//$statement->execute(array(
-//    "fname" => $firstname,
-//    "lname" => $lastname,
-//    "department" => $department,
-//    "email" => $email
-//));
-
 
 # prepare RAG input
 $contextTokenCount = CONTEXT_TOKEN_COUNT - TokenizerX::count($prompt) - 20;
@@ -53,8 +55,10 @@ foreach($documents as $document) {
     }
 }
 
+# prepare API input
 $input .= "\n\n##### INPUT: \n"  . $prompt . "\n##### RESPONSE:\n";
 
+# get API response
 $response = $client->chat()->create([
     'model' => $model,
     'messages' => [
