@@ -1,3 +1,3 @@
 vendor/
 .idea/
-api_key.txt
+app/src/api_key.txt
