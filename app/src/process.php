@@ -1,13 +1,26 @@
 <?php
+include 'database.php';
+
+$prompt = $_POST['prompt'];
+//$lastname = $_POST['last_name'];
+//$department = $_POST['department'];
+//$email = $_POST['email'];
+//
+//$statement = $conn->prepare("INSERT INTO employees(first_name, last_name, department, email)
+//    VALUES(:fname, :lname, :department, :email)");
+//$statement->execute(array(
+//    "fname" => $firstname,
+//    "lname" => $lastname,
+//    "department" => $department,
+//    "email" => $email
+//));
 
 use Rajentrivedi\TokenizerX\TokenizerX;
-use service\Encoder;
 
 require __DIR__ . '/vendor/autoload.php';
 
 const CONTEXT_TOKEN_COUNT = 1000;
 $apiKey = file_get_contents('api_key.txt');
-$prompt = $argv[1];
 if (! $prompt) {
     $prompt = 'What is the result of 2 + 2?';
 }
@@ -51,4 +64,3 @@ $response = $client->chat()->create([
 
 echo $input;
 echo $response->choices[0]->message->content;
-echo "\n";

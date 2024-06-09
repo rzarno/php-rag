@@ -1,0 +1,46 @@
+version: '3'
+volumes:
+  psql-data:
+
+services:
+  php-app:
+    build: ./app
+    image: myapp
+    container_name: php-app
+    env_file:
+      - ./env
+    depends_on:
+      - postgres
+    command: ["./wait-for-postgres.sh", "", "apache2-foreground"]
+    ports:
+      - 80:80
+    networks:
+      app-env:
+
+  postgres:
+    image: postgres:16.0
+    container_name: postgres 
+    env_file:
+      - ./env
+    volumes:
+      - ./script/:/docker-entrypoint-initdb.d
+      - psql-data:/var/lib/postgresql/data
+    networks:
+      app-env:
+      interface:
+  
+  pgadmin:
+    image: fenglc/pgadmin4
+    container_name: pgadmin
+    env_file:
+      - ./env
+    depends_on:
+      - postgres
+    ports:
+      - 5050:5050
+    networks:
+      interface:
+    
+networks:
+  app-env:
+  interface:

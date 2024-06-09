@@ -1,0 +1,121 @@
+Michał Żarnecki Portfolio
+
+I'm a programmer and lecturer. My work is related to programming in Python/PHP/JavaScript and designing systems and solutions related to AI/machine learning, data mining, big data and natural language processing.
+
+LinkedIn Github
+
+Veolia – mobile application to ensure equipment reliability
+
+Posted on 1 October 2016  in projects
+
+Picture from programa.pl Mobile application for Veolia workers to conduct Inspection of important equipment. Application is using web-service to pass data into cebtralized company system. Responsibilities:
+
+implementing mobile application improving app transfer speed and data reliability implementing authentication methods and synchronization designing communication protocol application releases, updates and meintanance
+
+Android, API [Top]
+
+Consulting ERP system
+
+Posted on 2 February 2016  in projects
+
+Picture from programa.pl System for the ecology consulting company. Responsibilities:
+
+technical project management system modules configuration and modification implementing system modules and functionalities implementation of invoices module implemenatation of users managemant and authorisation module implementation of electronic data interchange module creating and running unit tests and Selenium IDE interface tests project optimization, acceleration, conducting HTML/CSS validators tests and server load tests collecting data and creating project specification
+
+JavaScript, Laravel, PHP, Symfony [Top]
+
+Mediterraneum
+
+Posted on 29 January 2016  in projects
+
+Picture from programa.pl ERP/CRM system and mobile app for tour operator. Responsibilities:
+
+creating mobile applications for iOS system and iPhone/iPad devices implemantation of API services
+
+JavaScript, PHP [Top]
+
+Casual worker
+
+Posted on 22 January 2016  in projects
+
+Picture from programa.pl Web application for employers and employees to simplify transactions and taking orders. Responsibilities:
+
+implementing system modules and functionalities collecting data and creating project specification
+
+PHP [Top]
+
+Elephant Door
+
+Posted on 1 December 2015  in projects
+
+Picture from programa.pl Smart alarm system. Responsibilities:
+
+implementing website functionalities implementing Java selenium test suites for interface
+
+[Top]
+
+Group of 4 ERP/CRM systems for companies organizing trainings and workshops
+
+Posted on 28 October 2015  in projects
+
+Picture from programa.pl Responsibilities:
+
+technical project management system modules configuration and modification implementing system modules and functionalities integration with external JavaScript libraries implementation of messages and notification system implementation of user calendar module implementation of invoices module implementation of users management and authorization module implementation od electronic data interchange module creating and running unit tests and Selenium IDE interface test project optimization, acceleration, conducting HTML/CSS validators tests and server load tests migrating projects to new versions and improvements collecting data and creating project specification
+
+PHP [Top]
+
+Bugilo
+
+Posted on 29 January 2015  in projects
+
+Picture from programa.pl ERP system for company management. Based on Kanban methodology. Responsibilities:
+
+involvement in the process of creating system tools
+
+[Top]
+
+ECM – ERP System
+
+Posted on 4 October 2014  in projects
+
+Picture from programa.pl ERP system for the company working in the energy sector specialized in optimising energy consumption for their customers. Responsibilities:
+
+implementation of mobile monitoring system collecting data from electricity meters and sending via GPRS development of Android mobile app for system users system modules configuration and modification creating controllers based on tables and forms generators implementation of invoices module and pdf generator energy usage reports (based on Google Graph) and simulations generator implementation post-implementation period management collecting data and creating project specification
+
+[Top]
+
+Abita – ERP System
+
+Posted on 1 September 2014  in projects
+
+Picture from programa.pl System for building construction management. Responsibilities:
+
+technical project management implementation of electronic data interchange module integration with external systems communicating to Abita system collecting data and creating project specification system modules configuration and modification implementing system modules and functionalities
+
+[Top]
+
+A2 do Europy
+
+Posted on 22 June 2014  in projects
+
+Picture from programa.pl Web and mobile application that can calculate highway payments and mandatory equipment for specified route. Responsibilities:
+
+project technical management development of Android mobile app with WebView control app architecture planning creating the algorithm for matching highways paid segments to route provided bu user Google Maps, Inverse Geocoding and Yahoo currency API integration Locales system and app translation for 6 languages Facebook app development mySQL database spatial indexes and functions management app optimisation and acceleration
+
+JavaScript, PHP [Top]
+
+← Older Posts Newer Posts →
+
+events
+
+lectures
+
+projects
+
+MongoDb RAG RNN Llama3 Vector DB Symfony Nginx LLM PHP ScikitLearn nodejs data science NER NLP supervised ML Server administration API Jenkins PyTorch AWS regular expression time series Docker Laravel Android gulp Neo4j Cassandra DBMS Jquery JavaScript npm Yii2 Big Data Stremlit SigmaJS Ubuntu Centos Neural networks Data mining Machine Learning Elasticsearch reinforcement learning TextBlob unsupervised ML text mining langchain Kibana PostgreSQL Pandas Spacy NumPy
+
+PHP TextBlob unsupervised ML NER regular expression Laravel NLP Centos MongoDb langchain PyTorch Pandas Machine Learning RNN AWS API Yii2 Server administration Neural networks Ubuntu Symfony npm DBMS supervised ML JavaScript NumPy Docker Nginx SigmaJS LLM RAG Stremlit Kibana ScikitLearn Llama3 Big Data Elasticsearch reinforcement learning Spacy text mining Cassandra Neo4j PostgreSQL Data mining time series Jenkins gulp data science nodejs Android Jquery Vector DB
+
+nodejs Docker API Spacy NumPy regular expression unsupervised ML Big Data PostgreSQL Server administration langchain Llama3 data science NER Ubuntu Symfony Nginx supervised ML PyTorch Neural networks Machine Learning gulp RNN Pandas text mining NLP TextBlob reinforcement learning DBMS Laravel Vector DB JavaScript LLM Neo4j Yii2 ScikitLearn time series Kibana MongoDb Jquery PHP Stremlit npm Android AWS Cassandra Jenkins Elasticsearch Data mining Centos SigmaJS RAG
+
+© 2024 Michał Żarnecki Portfolio Powered by BestWebLayout and WordPress
