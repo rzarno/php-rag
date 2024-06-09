@@ -8,7 +8,7 @@ This approach combines power of transformers and access to source documents.
 
 ## Setup:
 1. Run in CLI: `cd app/src && composer install`
-2. Create api_key.txt file and put there your OpenAI API key
+2. Create api_key.txt file inside app/src and put there your OpenAI API key
 3. Run in CLI: `cd ../../ && composer install`
 
 ## Usage:
@@ -19,10 +19,6 @@ In cli run
 
 ### Example output:
 #### Example 1
-command:
-`php app/src/index.php "What is the result of 2 + 2?"`
-
-output:
 ```
 ##### INPUT:
 What is the result of 2 + 2?
@@ -31,10 +27,6 @@ The result of 2 + 2 is 4.
 ```
 
 #### Example 2
-command
-`php app/src/index.php "what is specialization of Michał Żarnecki based on his website content?"`
-
-output:
 ```
 ##### INPUT: 
 what is specialization of Michał Żarnecki based on his website content
