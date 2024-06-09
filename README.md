@@ -44,5 +44,5 @@ Based on the content of Michał Żarnecki's website, his specialization focuses 
 Key technologies and frameworks he works with include AWS, TensorFlow, PyTorch, ScikitLearn, Neo4j, Elasticsearch, Docker, and various NLP and machine learning libraries such as LangChain, RAG, and more.
 ```
 ## Concept:
-<img src="ai_chatbot_llm_rag.jpg" style="background: white;" width="1000px"/>
+<img src="ai_chatbot_llm_rag.jpg" width="1000px"/>
 
