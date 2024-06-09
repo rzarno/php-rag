@@ -1,19 +1,11 @@
 <?php
-include 'database.php';
+try {
+    $conn = new PDO('pgsql:host=postgres;port=5432;dbname='.$_ENV["POSTGRES_DB"] .'',''.$_ENV["POSTGRES_USER"] .'',''.$_ENV["POSTGRES_PASSWORD"] .'');
+} catch (PDOException $e) {
+    die('Connection failed: ' . $e->getMessage());
+}
 
 $prompt = $_POST['prompt'];
-//$lastname = $_POST['last_name'];
-//$department = $_POST['department'];
-//$email = $_POST['email'];
-//
-//$statement = $conn->prepare("INSERT INTO employees(first_name, last_name, department, email)
-//    VALUES(:fname, :lname, :department, :email)");
-//$statement->execute(array(
-//    "fname" => $firstname,
-//    "lname" => $lastname,
-//    "department" => $department,
-//    "email" => $email
-//));
 
 use Rajentrivedi\TokenizerX\TokenizerX;
 
@@ -38,7 +30,18 @@ foreach($files as $file) {
     $documents[] = $document;
 }
 
-#prpare RAG input
+# Prepare RAG input using DB
+//$statement = $conn->prepare("INSERT INTO employees(first_name, last_name, department, email)
+//    VALUES(:fname, :lname, :department, :email)");
+//$statement->execute(array(
+//    "fname" => $firstname,
+//    "lname" => $lastname,
+//    "department" => $department,
+//    "email" => $email
+//));
+
+
+# prepare RAG input
 $contextTokenCount = CONTEXT_TOKEN_COUNT - TokenizerX::count($prompt) - 20;
 $input = '';
 foreach($documents as $document) {
