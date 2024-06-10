@@ -1,6 +1,6 @@
 <?php
 
-namespace app\src\service;
+namespace service;
 
 class PromptResolver
 {

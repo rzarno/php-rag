@@ -1,5 +1,5 @@
 <?php
-namespace app\src\service;
+namespace service;
 
 use OpenAI;
 use OpenAI\Client;
@@ -12,7 +12,7 @@ class GPTAPIClient
 
     public function __construct()
     {
-        $apiKey = file_get_contents('../api_key.txt');
+        $apiKey = file_get_contents(__DIR__ . '/../api_key.txt');
         $this->client = OpenAI::Client($apiKey);
     }
 

@@ -1,5 +1,5 @@
 <?php
-namespace app\src\service;
+namespace service;
 
 class DocumentLoader
 {
@@ -11,7 +11,7 @@ class DocumentLoader
 
     public function loadDocuments(): void
     {
-        $path    = '../documents';
+        $path    = __DIR__ . '/../documents';
         $files = array_diff(scandir($path), array('.', '..'));
         foreach($files as $file) {
             $document = file_get_contents($path . '/' . $file);

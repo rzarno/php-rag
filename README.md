@@ -31,17 +31,18 @@ The result of 2 + 2 is 4.
 ##### INPUT: 
 what is specialization of Michał Żarnecki based on his website content
 ##### RESPONSE:
-Based on the content of Michał Żarnecki's website, his specialization focuses on programming and lecturing in areas related to:
-
-1. **Programming Languages**: Python, PHP, and JavaScript.
-2. **Artificial Intelligence (AI) and Machine Learning**: Designing systems and solutions related to AI/machine learning, data mining, and big data.
-3. **Natural Language Processing (NLP)**: Working with NLP for various applications.
-4. **Big Data and Data Mining**: Expertise in data handling at large scales and mining valuable information.
-5. **Lecturing**: Delivering e-learning courses and lectures on topics like machine learning.
-6. **Developing Business Intelligence Tools**: Creating applications such as AI chatbots for business document analysis and search engines.
-7. **Conference Speaking**: Presenting on topics like integrating machine learning models in PHP.
-
-Key technologies and frameworks he works with include AWS, TensorFlow, PyTorch, ScikitLearn, Neo4j, Elasticsearch, Docker, and various NLP and machine learning libraries such as LangChain, RAG, and more.
+Michał Żarnecki is a programmer and lecturer specializing in several key areas related to modern software development and data-driven technologies.
+ 
+His expertise includes:
+1. **Programming Languages**: Python, PHP, JavaScript.
+2. **AI and Machine Learning**: Designing systems and solutions related to artificial intelligence and machine learning.
+3. **Data Mining and Big Data**: Extracting valuable insights from large datasets. 
+4. **Natural Language Processing (NLP)**: Working on systems that understand and generate human language. 
+5. **Software Development Frameworks**: Utilizing various tools and frameworks such as Streamlit, TensorFlow, PyTorch, and langchain. 
+6. **Database Systems**: Implementing and working with databases like PostgreSQL, Elasticsearch, Neo4j, and others.
+ 
+His portfolio highlights projects such as an AI chatbot for analyzing company documents and a self-driving vehicle based on TensorFlow and Raspberry Pi.
+Additionally, he has contributed to conferences and created e-learning courses focused on machine learning, underscoring his dual role as a developer and educator.
 ```
 ## Concept:
 <img src="ai_chatbot_llm_rag.jpg" width="1000px"/>

@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-package-tools" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/yethee/tiktoken" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/illuminate/contracts" />

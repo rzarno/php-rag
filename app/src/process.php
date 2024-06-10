@@ -1,10 +1,10 @@
 <?php
 
-use app\src\service\DocumentLoader;
-use app\src\service\DocumentRepository;
-use app\src\service\GPTAPIClient;
-use app\src\service\PromptResolver;
-use app\src\service\RAGInputProvider;
+use service\DocumentLoader;
+use service\DocumentRepository;
+use service\GPTAPIClient;
+use service\PromptResolver;
+use service\RAGInputProvider;
 
 require __DIR__ . '/vendor/autoload.php';
 
