@@ -1,6 +1,5 @@
 <?php
-
-namespace app\service;
+namespace app\src\service;
 
 
 class Encoder
