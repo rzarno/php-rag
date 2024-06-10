@@ -1,5 +1,6 @@
 <?php
 
+use app\src\service\DocumentLoader;
 use app\src\service\DocumentRepository;
 use app\src\service\GPTAPIClient;
 use app\src\service\PromptResolver;
@@ -7,34 +8,21 @@ use app\src\service\RAGInputProvider;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$repository = new DocumentRepository();
+$documentRrepository = new DocumentRepository();
 $apiClient = new GPTAPIClient();
-#get prompt from POST or CLI or create default "2+2="
-$prompt = (new PromptResolver())->getPromptFromInput();
+$promptResolver = new PromptResolver();
 $ragProvider = new RAGInputProvider();
-
+$documentLoader = new DocumentLoader($apiClient, $documentRrepository);
 
 #load documents
-$path    = 'documents';
-$files = scandir($path);
-$files = array_diff(scandir($path), array('.', '..'));
-$documents = [];
-foreach($files as $file) {
-    $document = file_get_contents($path . '/' . $file);
-    $documents[] = $document;
-
-    #load documents to postgres database
-    $response = $apiClient->getEmbeddings($document);
-    $repository->insertDocument($document, $response);
-}
-
+$documentLoader->loadDocuments();
+#get prompt from POST or CLI or create default "2+2="
+$prompt = $promptResolver->getPromptFromInput();
 # get embeddings for prompt
 $embeddingPrompt = $apiClient->getEmbeddings($prompt);
-
 #find documents with similarity to prompt
-$documentsChosen = $repository->getSimilarDocuments($embeddingPrompt);
-
-# prepare RAG input
+$documentsChosen = $documentRrepository->getSimilarDocuments($embeddingPrompt);
+# prepare RAG input - combine prompt with matched source documents
 $input = $ragProvider->getRAGInput($documentsChosen, $prompt);
 
 # get API response
