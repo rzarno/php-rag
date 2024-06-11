@@ -51,5 +51,5 @@ Additionally, he has contributed to conferences and created e-learning courses f
 ## Resources:
 websites used to fill vector database come from "Website Classification" dataset on Kaggle
 author: Hetul Mehta
-lkink: https://www.kaggle.com/datasets/hetulmehta/website-classification?resource=download
+link: https://www.kaggle.com/datasets/hetulmehta/website-classification?resource=download
 
