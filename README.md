@@ -47,3 +47,9 @@ Additionally, he has contributed to conferences and created e-learning courses f
 ## Concept:
 <img src="ai_chatbot_llm_rag.jpg" width="1000px"/>
 
+
+## Resources:
+websites used to fill vector database come from "Website Classification" dataset on Kaggle
+author: Hetul Mehta
+lkink: https://www.kaggle.com/datasets/hetulmehta/website-classification?resource=download
+
