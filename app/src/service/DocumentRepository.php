@@ -17,18 +17,20 @@ class DocumentRepository
         }
     }
 
-    public function insertDocument(string $document, string $embedding): bool
+    public function insertDocument(string $document, string $embedding, string $meta): bool
     {
-        $statement = $this->connection->prepare("INSERT INTO document(text, embedding) VALUES(:doc, :embed)");
+        $statement = $this->connection->prepare("INSERT INTO document(text, embedding, meta) VALUES(:doc, :embed, :meta)");
+
         return $statement->execute([
-            "doc" => $document,
-            "embed" => $embedding
+            'doc' => $document,
+            'embed' => $embedding,
         ]);
     }
 
     public function getSimilarDocuments(string $embeddingPrompt): array
     {
-        return $this->connection->query("SELECT text from document order by embedding <-> '" . $embeddingPrompt . "'  desc limit 2;")
+        $results = $this->connection->query("SELECT text from document order by embedding <=> '" . $embeddingPrompt . "' limit 3;")
             ->fetchAll();
+        return $results;
     }
 }

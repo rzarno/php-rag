@@ -17,8 +17,11 @@ class DocumentLoader
             $document = file_get_contents($path . '/' . $file);
 
             #load documents to postgres database
-            $response = $this->apiClient->getEmbeddings($document);
-            $this->documentRepository->insertDocument($document, $response);
+            $responseDocument = $this->apiClient->getEmbeddings($document);
+            $meta = substr($document, 0, 300);
+            $responseMeta = $this->apiClient->getEmbeddings($meta);
+
+            $this->documentRepository->insertDocument($document, $responseDocument, $responseMeta);
         }
     }
 }
