@@ -6,3 +6,5 @@ CREATE TABLE IF NOT EXISTS document (
     text text,
     created_at timestamptz DEFAULT now()
 );
+
+CREATE INDEX ON document USING hnsw (embedding vector_cosine_ops);

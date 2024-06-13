@@ -19,7 +19,7 @@ class DocumentRepository
 
     public function insertDocument(string $document, string $embedding, string $meta): bool
     {
-        $statement = $this->connection->prepare("INSERT INTO document(text, embedding, meta) VALUES(:doc, :embed, :meta)");
+        $statement = $this->connection->prepare("INSERT INTO document(text, embedding) VALUES(:doc, :embed)");
 
         return $statement->execute([
             'doc' => $document,
@@ -29,8 +29,8 @@ class DocumentRepository
 
     public function getSimilarDocuments(string $embeddingPrompt): array
     {
-        $results = $this->connection->query("SELECT text from document order by embedding <=> '" . $embeddingPrompt . "' limit 3;")
-            ->fetchAll();
-        return $results;
+        $stmt = $this->connection->prepare("SELECT text from document order by embedding <=> :embeddingPrompt limit 3;");
+        $stmt->execute(['embeddingPrompt' => $embeddingPrompt]);
+        return $stmt->fetchAll();
     }
 }
