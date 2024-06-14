@@ -44,6 +44,28 @@ His expertise includes:
 His portfolio highlights projects such as an AI chatbot for analyzing company documents and a self-driving vehicle based on TensorFlow and Raspberry Pi.
 Additionally, he has contributed to conferences and created e-learning courses focused on machine learning, underscoring his dual role as a developer and educator.
 ```
+
+#### Example 3
+```
+##### INPUT: 
+Is Michał Żarnecki programmer the same person as Michał Żarnecki audio engineer?
+
+##### RESPONSE:
+Based on the information provided, it appears that Michał Żarnecki the programmer and Michał Żarnecki the audio engineer are not the same person.
+Here’s why:
+1. **Fields of Expertise**:
+ - Michał Żarnecki, the audio engineer, was a well-known operator and reżyser dźwięku (sound director) in Poland, with notable contributions to the Polish film industry, as mentioned in the Wikipedia excerpt.
+ - Michal Żarnecki, the programmer, has a portfolio focused on programming in Python, PHP, and JavaScript, with projects related to AI, machine learning, data mining, and software development.
+2. **Lifespan**:
+ - Michał Żarnecki the audio engineer was born on November 12, 1946, and passed away on November 21, 2016.
+ - The projects listed in Michał Żarnecki the programmer’s portfolio date from 2014 to 2016, which would be conflicting if he had passed away in 2016 and was actively working in those years. 
+3. **Occupational Focus**:
+ - The audio engineer has a career documented in film sound engineering and education.
+ - The programmer’s career is centered around software development, mobile applications, ERP systems, and consulting in technology.
+
+Given the distinct differences in their professional domains, timelines, and expertise, it is highly unlikely that they are the same individual
+```
+
 ## Concept:
 <img src="ai_chatbot_llm_rag.jpg" width="1000px"/>
 
