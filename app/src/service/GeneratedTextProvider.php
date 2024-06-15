@@ -1,29 +1,12 @@
 <?php
 namespace service;
 
-use OpenAI;
-use OpenAI\Client;
+use service\pipeline\Payload;
+use League\Pipeline\StageInterface;
 
-class GPTAPIClient
+class GeneratedTextProvider extends AbstractGPTAPIClient implements StageInterface
 {
     private string $model = 'gpt-4o';
-    private string $embeddingModel = 'text-embedding-ada-002';
-    private Client $client;
-
-    public function __construct()
-    {
-        $apiKey = file_get_contents(__DIR__ . '/../api_key.txt');
-        $this->client = OpenAI::Client($apiKey);
-    }
-
-    public function getEmbeddings(string $document): string
-    {
-        $response = $this->client->embeddings()->create([
-            'input' => $document,
-            'model' => $this->embeddingModel
-        ]);
-        return json_encode($response->embeddings[0]->embedding);
-    }
 
     public function generateText(string $prompt, string $sourceDocuments): string
     {
@@ -42,5 +25,14 @@ class GPTAPIClient
         ]);
 
         return $response->choices[0]->message->content;
+    }
+
+    /**
+     * @param Payload $payload
+     * @return string
+     */
+    public function __invoke($payload)
+    {
+        return $this->generateText($payload->getPrompt(), $payload->getRagPrompt());
     }
 }

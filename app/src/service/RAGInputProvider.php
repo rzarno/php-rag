@@ -2,13 +2,15 @@
 
 namespace service;
 
+use service\pipeline\Payload;
+use League\Pipeline\StageInterface;
 use Rajentrivedi\TokenizerX\TokenizerX;
 
-class RAGInputProvider
+class RAGInputProvider implements StageInterface
 {
     const CONTEXT_TOKEN_COUNT = 1000;
 
-    public function getRAGInput(array $documentsChosen, string $prompt): string
+    public function getRAGPrompt(array $documentsChosen, string $prompt): string
     {
         $contextTokenCount = self::CONTEXT_TOKEN_COUNT - TokenizerX::count($prompt) - 20;
         $input = '';
@@ -22,5 +24,14 @@ class RAGInputProvider
         }
 
         return  $input;
+    }
+
+    /**
+     * @param Payload $payload
+     * @return Payload
+     */
+    public function __invoke($payload)
+    {
+        return $payload->setRagPrompt($this->getRAGPrompt($payload->getSimilarDocuments(), $payload->getPrompt()));
     }
 }

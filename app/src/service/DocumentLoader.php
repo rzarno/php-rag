@@ -1,12 +1,13 @@
 <?php
 namespace service;
 
-class DocumentLoader
+
+class DocumentLoader extends AbstractDocumentRepository
 {
     public function __construct(
-        private readonly GPTAPIClient $apiClient,
-        private readonly DocumentRepository $documentRepository
+        private readonly TextEncoder $textEncoder
     ) {
+        parent::__construct();
     }
 
     public function loadDocuments(): void
@@ -17,11 +18,22 @@ class DocumentLoader
             $document = file_get_contents($path . '/' . $file);
 
             #load documents to postgres database
-            $responseDocument = $this->apiClient->getEmbeddings($document);
+            $responseDocument = $this->textEncoder->getEmbeddings($document);
             $meta = substr($document, 0, 300);
-            $responseMeta = $this->apiClient->getEmbeddings($meta);
+            $responseMeta = $this->textEncoder->getEmbeddings($meta);
 
-            $this->documentRepository->insertDocument($document, $responseDocument, $responseMeta);
+            $this->insertDocument($document, $responseDocument, $responseMeta);
         }
     }
+
+    private function insertDocument(string $document, string $embedding, string $meta): bool
+    {
+        $statement = $this->connection->prepare("INSERT INTO document(text, embedding) VALUES(:doc, :embed)");
+
+        return $statement->execute([
+            'doc' => $document,
+            'embed' => $embedding,
+        ]);
+    }
+
 }

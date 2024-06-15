@@ -1,31 +1,35 @@
 <?php
-use service\DocumentRepository;
-use service\GPTAPIClient;
+use League\Pipeline\FingersCrossedProcessor;
+use League\Pipeline\Pipeline;
+use service\DocumentProvider;
+use service\GeneratedTextProvider;
+use service\pipeline\Payload;
 use service\PromptResolver;
 use service\RAGInputProvider;
+use service\TextEncoder;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$documentRrepository = new DocumentRepository();
-$apiClient = new GPTAPIClient();
 $promptResolver = new PromptResolver();
-$ragProvider = new RAGInputProvider();
+$textEncoder = new TextEncoder();
+$documentProvider = new DocumentProvider();
+$ragPromptProvider = new RAGInputProvider();
+$generatedTextProvider = new GeneratedTextProvider();
+$payload = new Payload();
 
-#get prompt from POST or CLI"
-$prompt = $promptResolver->getPromptFromInput();
-# get embeddings for prompt
-$embeddingPrompt = $apiClient->getEmbeddings($prompt);
-#find documents with similarity to prompt
-$documentsChosen = $documentRrepository->getSimilarDocuments($embeddingPrompt);
-# prepare RAG input - combine prompt with matched source documents
-$input = $ragProvider->getRAGInput($documentsChosen, $prompt);
+$pipeline = (new Pipeline(new FingersCrossedProcessor()))
+    ->pipe($promptResolver) //get prompt from POST or CLI
+    ->pipe($textEncoder) //get embeddings for prompt
+    ->pipe($documentProvider) //find documents with similarity to prompt
+    ->pipe($ragPromptProvider) //prepare RAG input - combine prompt with matched source documents
+    ->pipe($generatedTextProvider); //get API response
 
-# get API response
-$response = $apiClient->generateText($prompt, $input);
+$response = $pipeline->process($payload);
+
 
 echo "<h1>DOCUMENTS:</h1>";
 echo "<br /><br />";
-echo $input;
+echo $payload->getRagPrompt();
 echo "<br /><br /><br /><br />";
 echo "<h1>RESPONSE:</h1>";
 echo "<br /><br />";

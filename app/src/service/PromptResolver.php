@@ -1,8 +1,10 @@
 <?php
-
 namespace service;
 
-class PromptResolver
+use service\pipeline\Payload;
+use League\Pipeline\StageInterface;
+
+class PromptResolver implements StageInterface
 {
     public function getPromptFromInput(): string
     {
@@ -14,5 +16,14 @@ class PromptResolver
             $prompt = 'What is the result of 2 + 2?';
         }
         return $prompt;
+    }
+
+    /**
+     * @param Payload $payload
+     * @return Payload
+     */
+    public function __invoke($payload)
+    {
+        return $payload->setPrompt($this->getPromptFromInput());
     }
 }
