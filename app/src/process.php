@@ -1,6 +1,4 @@
 <?php
-
-use service\DocumentLoader;
 use service\DocumentRepository;
 use service\GPTAPIClient;
 use service\PromptResolver;
@@ -12,11 +10,8 @@ $documentRrepository = new DocumentRepository();
 $apiClient = new GPTAPIClient();
 $promptResolver = new PromptResolver();
 $ragProvider = new RAGInputProvider();
-$documentLoader = new DocumentLoader($apiClient, $documentRrepository);
 
-#load documents
-$documentLoader->loadDocuments();
-#get prompt from POST or CLI or create default "2+2="
+#get prompt from POST or CLI"
 $prompt = $promptResolver->getPromptFromInput();
 # get embeddings for prompt
 $embeddingPrompt = $apiClient->getEmbeddings($prompt);

@@ -10,5 +10,7 @@ until PGPASSWORD=${POSTGRES_PASSWORD} psql -h "postgres" -p "5432" -U${POSTGRES_
   sleep 1
 done
 
->&2 echo "Postgres is up - executing command"
+php /var/www/html/loadDocuments.php
+
+>&2 echo "Postgres is ready - executing command"
 exec $cmd

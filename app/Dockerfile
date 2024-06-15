@@ -8,5 +8,5 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
 RUN apt-get update
 RUN apt-get install -y postgresql-client-15
 COPY ./wait-for-postgres.sh wait-for-postgres.sh
-RUN chmod +x wait-for-postgres.sh 
 COPY src/ /var/www/html
+RUN chmod +x wait-for-postgres.sh
