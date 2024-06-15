@@ -7,11 +7,21 @@
         "rajentrivedi/tokenizer-x": "^1.0",
         "league/pipeline": "^1.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
+    },
     "autoload": {
         "psr-0": {
             "service\\": [""]
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "test\\": [""]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "config": {
         "allow-plugins": {
             "php-http/discovery": true

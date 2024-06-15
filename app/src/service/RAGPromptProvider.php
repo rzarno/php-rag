@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace service;
 
@@ -6,7 +7,7 @@ use service\pipeline\Payload;
 use League\Pipeline\StageInterface;
 use Rajentrivedi\TokenizerX\TokenizerX;
 
-class RAGPromptProvider implements StageInterface
+final class RAGPromptProvider implements StageInterface
 {
     const CONTEXT_TOKEN_COUNT = 1000;
 

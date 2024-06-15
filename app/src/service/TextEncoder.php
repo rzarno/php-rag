@@ -1,11 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace service;
 
 use service\pipeline\Payload;
 use League\Pipeline\StageInterface;
 
-class TextEncoder extends AbstractGPTAPIClient implements StageInterface
+final class TextEncoder extends AbstractGPTAPIClient implements StageInterface
 {
     private string $embeddingModel = 'text-embedding-ada-002';
 

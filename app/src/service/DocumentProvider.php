@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
+
 namespace service;
 
 use League\Pipeline\StageInterface;
 use service\pipeline\Payload;
 
-class DocumentProvider extends AbstractDocumentRepository implements StageInterface
+final class DocumentProvider extends AbstractDocumentRepository implements StageInterface
 {
     public function getSimilarDocuments(string $embeddingPrompt): array
     {

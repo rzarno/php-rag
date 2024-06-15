@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
+
 namespace service;
 
 
-class DocumentLoader extends AbstractDocumentRepository
+final class DocumentLoader extends AbstractDocumentRepository
 {
     public function __construct(
         private readonly TextEncoder $textEncoder

@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
+
 namespace service\pipeline;
 
 
-class Payload
+final class Payload
 {
     private string $prompt;
     private string $embeddingPrompt;

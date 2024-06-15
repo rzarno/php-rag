@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
+
 namespace service;
 
 use service\pipeline\Payload;
 use League\Pipeline\StageInterface;
 
-class PromptResolver implements StageInterface
+final class PromptResolver implements StageInterface
 {
     public function getPromptFromInput(): string
     {
