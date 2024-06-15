@@ -1,7 +1,5 @@
 # Creating RAG (Retrieval Augmented Generation) application in PHP
 
-based on https://github.com/Krisseck/php-rag
-
 This application uses LLM (Large Language Model) GPT-4o accessed via OpenAI API in order to generate text based on the user input. 
 The user input is used to retrieve relevant information from the database and then the retrieved information is used to generate the text.
 This approach combines power of transformers and access to source documents.
@@ -75,3 +73,8 @@ websites used to fill vector database come from "Website Classification" dataset
 author: Hetul Mehta
 link: https://www.kaggle.com/datasets/hetulmehta/website-classification?resource=download
 
+related articles/repositories:
+
+https://medium.com/mlearning-ai/create-a-chatbot-in-python-with-langchain-and-rag-85bfba8c62d2
+
+https://github.com/Krisseck/php-rag
