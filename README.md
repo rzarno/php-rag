@@ -7,7 +7,10 @@ This approach combines power of transformers and access to source documents.
 ## Setup:
 1. Run in CLI: `cd app/src && composer install`
 2. Create api_key.txt file inside app/src and put there your OpenAI API key
-3. Run in CLI: `cd ../../ && composer install`
+3. Run docker-compose: `docker-compose up`
+4. Open address 127.0.0.1 in browser and ask your question
+
+<img src="app_form.png" />
 
 ## Usage:
 
