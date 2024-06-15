@@ -6,7 +6,7 @@ use service\pipeline\Payload;
 use League\Pipeline\StageInterface;
 use Rajentrivedi\TokenizerX\TokenizerX;
 
-class RAGInputProvider implements StageInterface
+class RAGPromptProvider implements StageInterface
 {
     const CONTEXT_TOKEN_COUNT = 1000;
 

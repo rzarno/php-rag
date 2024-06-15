@@ -5,7 +5,7 @@ use service\DocumentProvider;
 use service\GeneratedTextProvider;
 use service\pipeline\Payload;
 use service\PromptResolver;
-use service\RAGInputProvider;
+use service\RAGPromptProvider;
 use service\TextEncoder;
 
 require __DIR__ . '/vendor/autoload.php';
@@ -13,7 +13,7 @@ require __DIR__ . '/vendor/autoload.php';
 $promptResolver = new PromptResolver();
 $textEncoder = new TextEncoder();
 $documentProvider = new DocumentProvider();
-$ragPromptProvider = new RAGInputProvider();
+$ragPromptProvider = new RAGPromptProvider();
 $generatedTextProvider = new GeneratedTextProvider();
 $payload = new Payload();
 
