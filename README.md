@@ -14,7 +14,7 @@ This approach combines power of transformers and access to source documents.
 
 ## Usage:
 
-Run in CLI: `php index.php "What is the result of 2 + 2?"`
+Run in CLI: `php minicli rag`
 
 In cli run
 
