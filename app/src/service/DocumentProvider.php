@@ -10,7 +10,7 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
 {
     public function getSimilarDocuments(string $embeddingPrompt): array
     {
-        $stmt = $this->connection->prepare("SELECT text from document order by embedding <=> :embeddingPrompt limit 3;");
+        $stmt = $this->connection->prepare("SELECT text from document order by embedding <=> :embeddingPrompt limit 5;");
         $stmt->execute(['embeddingPrompt' => $embeddingPrompt]);
         return $stmt->fetchAll();
     }

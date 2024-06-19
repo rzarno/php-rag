@@ -21,14 +21,12 @@ final class DocumentLoader extends AbstractDocumentRepository
 
             #load documents to postgres database
             $responseDocument = $this->textEncoder->getEmbeddings($document);
-            $meta = substr($document, 0, 300);
-            $responseMeta = $this->textEncoder->getEmbeddings($meta);
 
-            $this->insertDocument($document, $responseDocument, $responseMeta);
+            $this->insertDocument($document, $responseDocument);
         }
     }
 
-    private function insertDocument(string $document, string $embedding, string $meta): bool
+    private function insertDocument(string $document, string $embedding): bool
     {
         $statement = $this->connection->prepare("INSERT INTO document(text, embedding) VALUES(:doc, :embed)");
 
