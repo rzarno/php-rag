@@ -8,19 +8,23 @@ This approach combines power of transformers and access to source documents.
 1. Run in CLI: `cd app/src && composer install`
 2. Create api_key.txt file inside app/src and put there your OpenAI API key
 3. Run docker-compose: `docker-compose up`
-4. Open address 127.0.0.1 in browser and ask your question
+4. Open address [127.0.0.1](http://127.0.0.1/)  in browser and ask your question
 
 <img src="app_form.png" />
 
 ## Usage:
 
+### Web browser
+1. After docker compose finish setup containers open address [127.0.0.1](http://127.0.0.1/) in browser and ask your question
+
+### CLI
 1. Run docker interactive `docker exec -it php-app sh`
 
 2. Run in CLI: `php minicli rag`
 
 3. Ask question
 
-### Example output:
+## Example output:
 #### Example 1
 ```
 ##### INPUT:
