@@ -1,0 +1,20 @@
+#!/usr/bin/php
+<?php
+
+if(php_sapi_name() !== 'cli') {
+    exit;
+}
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Minicli\App;
+
+$app = new App([
+    'app_path' => [
+        __DIR__ . '/Command',
+    ],
+    'theme' => '\Unicorn',
+    'debug' => false,
+]);
+
+$app->runCommand($argv);
