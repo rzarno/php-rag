@@ -6,8 +6,18 @@ This approach combines power of transformers and access to source documents.
 
 ## Setup:
 1. Run in CLI: `cd app/src && composer install`
-2. Create api_key.txt file inside app/src and put there your OpenAI API key
+
+2. Setup language model - choose API "A" and local model "B":
+- A. Run GPT-4o via OpenAI API:
+- A.1. Create api_key.txt file inside app/src and put there your OpenAI API key
+- A.2. As last processing stage use GeneratedTextFromGPTProvider class (default)
+- B. Download Llama3 model using ollama and run LLM locally:
+- B.1. Download ollama from `https://ollama.com/download`
+- B.2. Download Llama 3 8B with `ollama run llama3`
+- B.3. As last processing stage use GeneratedTextFromLocalLlama3Provider class
+
 3. Run docker-compose: `docker-compose up`
+
 4. Open address [127.0.0.1](http://127.0.0.1/)  in browser and ask your question
 
 <img src="app_form.png" />
@@ -75,7 +85,6 @@ Given the distinct differences in their professional domains, timelines, and exp
 
 ## Concept:
 <img src="ai_chatbot_llm_rag.jpg" width="1000px"/>
-
 
 ## Resources:
 websites used to fill vector database come from "Website Classification" dataset on Kaggle

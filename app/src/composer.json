@@ -8,7 +8,8 @@
         "league/pipeline": "^1.0",
         "laravel/prompts": "^0.1.23",
         "minicli/minicli": "^4.2",
-        "minicli/command-help": "^1.0"
+        "minicli/command-help": "^1.0",
+        "guzzlehttp/guzzle": "^7.8"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.5"

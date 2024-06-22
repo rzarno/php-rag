@@ -2,7 +2,8 @@
 use League\Pipeline\FingersCrossedProcessor;
 use League\Pipeline\Pipeline;
 use service\DocumentProvider;
-use service\GeneratedTextProvider;
+use service\GeneratedTextFromGPTProvider;
+use service\GeneratedTextFromLocalLlama3Provider;
 use service\pipeline\Payload;
 use service\PromptResolver;
 use service\RAGPromptProvider;
@@ -13,8 +14,10 @@ require __DIR__ . '/vendor/autoload.php';
 $promptResolver = new PromptResolver();
 $textEncoder = new TextEncoder();
 $documentProvider = new DocumentProvider();
+//$generatedTextProvider = new GeneratedTextFromGPTProvider();
+$generatedTextProvider = new GeneratedTextFromLocalLlama3Provider();
 $ragPromptProvider = new RAGPromptProvider();
-$generatedTextProvider = new GeneratedTextProvider();
+
 $payload = new Payload();
 
 $pipeline = (new Pipeline(new FingersCrossedProcessor()))
