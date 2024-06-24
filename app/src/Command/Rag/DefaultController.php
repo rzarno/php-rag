@@ -9,7 +9,7 @@ use function Laravel\Prompts\spin;
 use League\Pipeline\FingersCrossedProcessor;
 use League\Pipeline\Pipeline;
 use service\DocumentProvider;
-use service\GeneratedTextProvider;
+use service\GeneratedTextFromGPTProvider;
 use service\pipeline\Payload;
 use service\PromptResolver;
 use service\RAGPromptProvider;
@@ -45,7 +45,7 @@ final class DefaultController extends CommandController
         $textEncoder = new TextEncoder();
         $documentProvider = new DocumentProvider();
         $ragPromptProvider = new RAGPromptProvider();
-        $generatedTextProvider = new GeneratedTextProvider();
+        $generatedTextProvider = new GeneratedTextFromGPTProvider();
         $payload = new Payload();
 
         $pipeline = (new Pipeline(new FingersCrossedProcessor()))
