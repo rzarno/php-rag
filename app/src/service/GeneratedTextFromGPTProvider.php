@@ -6,7 +6,7 @@ namespace service;
 use service\pipeline\Payload;
 use League\Pipeline\StageInterface;
 
-final class GeneratedTextProvider extends AbstractGPTAPIClient implements StageInterface
+final class GeneratedTextFromGPTProvider extends AbstractGPTAPIClient implements StageInterface
 {
     private string $model = 'gpt-4o';
 
