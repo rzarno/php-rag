@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace service;
 
+use GuzzleHttp\Client;
 use service\pipeline\Payload;
 use League\Pipeline\StageInterface;
 
@@ -14,8 +15,8 @@ final class GeneratedTextFromLocalLlama3Provider implements StageInterface
         $input = $sourceDocuments . "\n\n##### INPUT: \n"  . $prompt . "\n##### RESPONSE:\n";
 
         # get response
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', 'http://ollama:7869/api/generate', [
+        $client = new Client();
+        $response = $client->request('POST', 'http://ollama-container:11434/api/generate', [
             'body' => json_encode([
                 "model" => "llama3",
                 "prompt" => $input

@@ -11,7 +11,7 @@ services:
       - ./env
     depends_on:
       - postgres
-      - ollama
+      - ollama-container
     command: ["./wait-for-postgres.sh", "", "apache2-foreground"]
     ports:
       - 80:80
@@ -44,14 +44,15 @@ services:
     networks:
       interface:
 
-  ollama:
+  ollama-container:
     image: ollama/ollama:latest
     ports:
-      - 7869:11434
+      - 11434:11434
     volumes:
       - .:/code
       - ./ollama/ollama:/root/.ollama
-    container_name: ollama
+      - ./entrypoint.sh:/entrypoint.sh
+    container_name: ollama-container
     pull_policy: always
     tty: true
     restart: always
@@ -59,7 +60,8 @@ services:
       - OLLAMA_KEEP_ALIVE=24h
       - OLLAMA_HOST=0.0.0.0
     networks:
-      - ollama-docker
+      - app-env
+    entrypoint: ["/usr/bin/bash", "/entrypoint.sh"]
 
   ollama-webui:
     image: ghcr.io/open-webui/open-webui:main
@@ -67,7 +69,7 @@ services:
     volumes:
       - ./ollama/ollama-webui:/app/backend/data
     depends_on:
-      - ollama
+      - ollama-container
     ports:
       - 8080:8080
     environment: # https://docs.openwebui.com/getting-started/env-configuration#default_models
@@ -81,10 +83,8 @@ services:
       - host.docker.internal:host-gateway
     restart: unless-stopped
     networks:
-      - ollama-docker
+      - app-env
     
 networks:
   app-env:
   interface:
-  ollama-docker:
-    external: false
