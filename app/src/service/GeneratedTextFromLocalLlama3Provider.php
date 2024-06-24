@@ -15,7 +15,7 @@ final class GeneratedTextFromLocalLlama3Provider implements StageInterface
 
         # get response
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', 'http://localhost:11434/api/generate', [
+        $response = $client->request('POST', 'http://ollama:7869/api/generate', [
             'body' => json_encode([
                 "model" => "llama3",
                 "prompt" => $input
