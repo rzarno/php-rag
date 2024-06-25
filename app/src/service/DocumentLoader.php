@@ -3,11 +3,10 @@ declare(strict_types=1);
 
 namespace service;
 
-
 final class DocumentLoader extends AbstractDocumentRepository
 {
     public function __construct(
-        private readonly TextEncoder $textEncoder
+        private readonly TextEncoderInterface $textEncoder
     ) {
         parent::__construct();
     }

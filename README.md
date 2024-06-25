@@ -8,13 +8,16 @@ This approach combines power of transformers and access to source documents.
 1. Run in CLI: `cd app/src && composer install`
 
 2. Setup language model - choose API "A" and local model "B":
-- A. Run GPT-4o via OpenAI API:
-- A.1. Create api_key.txt file inside app/src and put there your OpenAI API key
-- A.2. As last processing stage use GeneratedTextFromGPTProvider class (default)
-- B. Download Llama3 model using ollama and run LLM locally:
-- B.1. Download ollama from `https://ollama.com/download`
-- B.2. Download Llama 3 8B with `ollama run llama3`
-- B.3. As last processing stage use GeneratedTextFromLocalLlama3Provider class
+- A. Download Llama3 model using ollama and run LLM locally (this option is slower na need more resources but works fully on local env):
+- A.1. Download ollama from `https://ollama.com/download`
+- A.2. Download Llama 3 8B with `ollama run llama3`
+- A.3. use MxbaiTextEncoder.php class in app/src/loadDocuments.php (default)
+
+
+- B. Run GPT-4o via OpenAI API (this option is faster but requires OpenAI API key):
+- B.1. Create api_key.txt file inside app/src and put there your OpenAI API key
+- B.2. use Ada002TextEncoder.php in class in app/src/loadDocuments.php
+
 
 3. Run docker-compose: `docker-compose up`
 

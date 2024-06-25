@@ -41,12 +41,19 @@
     </style>
 </head>
 <body>
-    <form method="post" action="process.php">
+    <form method="post" action="processOllama.php">
         <label><h1>Find answer in websites database</h1></label>
         <br />
-        <textarea name="prompt" cols="40" rows="5">What is specialization of programmer and lecturer Michał Żarnecki based on his website content.</textarea>
+        <textarea name="prompt" cols="30" rows="5">What is specialization of programmer and lecturer Michał Żarnecki based on his website content.</textarea>
         <br /><br />
-        <button type="submit">Generate answer</button>
+        <button type="submit">Answerwith Llama3 (local)</button>
+    </form>
+    <form method="post" action="processGpt.php">
+        <label><h1>Find answer in websites database</h1></label>
+        <br />
+        <textarea name="prompt" cols="30" rows="5">What is specialization of programmer and lecturer Michał Żarnecki based on his website content.</textarea>
+        <br /><br />
+        <button type="submit">Answer with GPT-4o API</button>
     </form>
 </body>
 </html>

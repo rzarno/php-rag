@@ -3,17 +3,17 @@ declare(strict_types=1);
 
 namespace Command\Rag;
 
-use Minicli\Command\CommandController;
-use function Laravel\Prompts\textarea;
-use function Laravel\Prompts\spin;
+use app\src\service\gpt\GeneratedTextFromGPTProvider;
+use app\src\service\gpt\Ada002TextEncoder;
 use League\Pipeline\FingersCrossedProcessor;
 use League\Pipeline\Pipeline;
+use Minicli\Command\CommandController;
 use service\DocumentProvider;
-use service\GeneratedTextFromGPTProvider;
 use service\pipeline\Payload;
 use service\PromptResolver;
 use service\RAGPromptProvider;
-use service\TextEncoder;
+use function Laravel\Prompts\spin;
+use function Laravel\Prompts\textarea;
 
 
 final class DefaultController extends CommandController
@@ -42,7 +42,7 @@ final class DefaultController extends CommandController
         $_POST['prompt'] = $question;
 
         $promptResolver = new PromptResolver();
-        $textEncoder = new TextEncoder();
+        $textEncoder = new Ada002TextEncoder();
         $documentProvider = new DocumentProvider();
         $ragPromptProvider = new RAGPromptProvider();
         $generatedTextProvider = new GeneratedTextFromGPTProvider();
