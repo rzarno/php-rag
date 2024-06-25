@@ -26,7 +26,10 @@ final class GeneratedTextFromLocalLlama3Provider implements StageInterface
         $rows = preg_split('/\n/', $body);
         $response = array_map(function($item){
             $row = json_decode($item, true);
-            return $row['response'] ?? '';
+            if ($row) {
+                return $row['response'];
+            }
+            return '';
         }, $rows);
 
         return implode('', $response);
