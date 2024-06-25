@@ -1,12 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace service;
+namespace service\openai;
 
-use service\pipeline\Payload;
 use League\Pipeline\StageInterface;
+use service\pipeline\Payload;
+use service\TextEncoderInterface;
 
-final class TextEncoder extends AbstractGPTAPIClient implements StageInterface
+final class Ada002TextEncoder extends AbstractGPTAPIClient
+    implements StageInterface, TextEncoderInterface
 {
     private string $embeddingModel = 'text-embedding-ada-002';
 

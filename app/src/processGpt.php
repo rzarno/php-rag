@@ -1,21 +1,20 @@
 <?php
+
+use service\openai\Ada002TextEncoder;
 use League\Pipeline\FingersCrossedProcessor;
 use League\Pipeline\Pipeline;
 use service\DocumentProvider;
-use service\GeneratedTextFromGPTProvider;
-use service\GeneratedTextFromLocalLlama3Provider;
+use service\openai\GeneratedTextFromGPTProvider;
 use service\pipeline\Payload;
 use service\PromptResolver;
 use service\RAGPromptProvider;
-use service\TextEncoder;
 
 require __DIR__ . '/vendor/autoload.php';
 
 $promptResolver = new PromptResolver();
-$textEncoder = new TextEncoder();
+$textEncoder = new Ada002TextEncoder();
 $documentProvider = new DocumentProvider();
-//$generatedTextProvider = new GeneratedTextFromGPTProvider();
-$generatedTextProvider = new GeneratedTextFromLocalLlama3Provider();
+$generatedTextProvider = new GeneratedTextFromGPTProvider();
 $ragPromptProvider = new RAGPromptProvider();
 
 $payload = new Payload();
@@ -28,7 +27,6 @@ $pipeline = (new Pipeline(new FingersCrossedProcessor()))
     ->pipe($generatedTextProvider); //get API response
 
 $response = $pipeline->process($payload);
-
 
 echo "<h1>DOCUMENTS:</h1>";
 echo "<br /><br />";

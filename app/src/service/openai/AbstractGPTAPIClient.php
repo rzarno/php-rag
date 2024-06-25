@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace service;
+namespace service\openai;
 
 use OpenAI;
 use OpenAI\Client;
