@@ -42,18 +42,18 @@
 </head>
 <body>
     <form method="post" action="processOllama.php">
-        <label><h1>Find answer in websites database</h1></label>
+        <label><h1>Find answer in websites database using ollama with Llama 3 model downloaded locally</h1></label>
         <br />
         <textarea name="prompt" cols="30" rows="5">What is specialization of programmer and lecturer Michał Żarnecki based on his website content.</textarea>
         <br /><br />
-        <button type="submit">Answerwith Llama3 (local)</button>
+        <button type="submit">Generate text</button>
     </form>
     <form method="post" action="processGpt.php">
-        <label><h1>Find answer in websites database</h1></label>
+        <label><h1>Find answer in websites database using GPT-4o</h1></label>
         <br />
-        <textarea name="prompt" cols="30" rows="5">What is specialization of programmer and lecturer Michał Żarnecki based on his website content.</textarea>
+        <textarea name="prompt" cols="30" rows="5">Is Michał Żarnecki programmer the same person as Michał Żarnecki audio engineer.</textarea>
         <br /><br />
-        <button type="submit">Answer with GPT-4o API</button>
+        <button type="submit">Generate text</button>
     </form>
 </body>
 </html>
