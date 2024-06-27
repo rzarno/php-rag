@@ -6,7 +6,7 @@ use service\openai\Ada002TextEncoder;
 
 require __DIR__ . '/vendor/autoload.php';
 
-//$textEncoder = new Ada002TextEncoder()
+//$textEncoder = new Ada002TextEncoder();
 $textEncoder = new MxbaiTextEncoder();
 $documentLoader = new DocumentLoader($textEncoder);
 
