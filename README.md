@@ -7,11 +7,22 @@ This approach combines power of transformers and access to source documents.
 ## Setup:
 1. Run in CLI: `cd app/src && composer install`
 
-2. Setup language model - choose API "A" and local model "B":
+2. Setup language model - choose API "A" and local model "B" (option B is simplier and requires less resources)
 - A. Download Llama3 model using ollama and run LLM locally (this option is slower na need more resources but works fully on local env):
 - A.1. Download ollama from `https://ollama.com/download`
-- A.2. Download Llama 3 8B with `ollama run llama3`
-- A.3. use MxbaiTextEncoder.php class in app/src/loadDocuments.php (default)
+- A.2. Download Llama 3 8B with `ollama pull llama3:latest`
+- A.3. Download mxbai embedding model `ollama pull mxbai-embed-large`
+- A.4. Make sure models are downloaded and ollama is running
+
+```
+ollama list
+NAME                    	ID          	SIZE  	MODIFIED       
+mxbai-embed-large:latest	468836162de7	669 MB	7 seconds ago 	
+llama3:latest           	365c0bd3c000	4.7 GB	17 seconds ago	
+```
+
+- A.5. Start ollama server `ollama serve`
+- A.6. use MxbaiTextEncoder.php class in app/src/loadDocuments.php (default)
 
 
 - B. Run GPT-4o via OpenAI API (this option is faster but requires OpenAI API key):
