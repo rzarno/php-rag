@@ -4,6 +4,9 @@ This application uses LLM (Large Language Model) GPT-4o accessed via OpenAI API 
 The user input is used to retrieve relevant information from the database and then the retrieved information is used to generate the text.
 This approach combines power of transformers and access to source documents.
 
+I described concepts used in this application with more details in article on medium.com
+https://medium.com/@michalzarnecki88/a-guide-to-using-llm-retrieval-augmented-generation-with-php-3bff25ce6616
+
 ## Setup:
 1. Run in CLI: `cd app/src && composer install`
 
