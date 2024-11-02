@@ -11,6 +11,10 @@
             font-family: sans-serif;
         }
 
+        form.ollama {
+            margin-bottom: 20px;
+        }
+
         form * {
             box-sizing: border-box;
         }
@@ -38,18 +42,25 @@
             background: linear-gradient(to right, #095516FF 0%,#539D6CFF 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#207cca', endColorstr='#9f58a3',GradientType=1 ); /* IE6-9 */
         }
+
+        form.ollama button[type=submit] {
+            background: -moz-linear-gradient(left, #290955 0%, #53769d 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(left, #290955 0%, #53769d 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to right, #290955 0%, #53769d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#207cca', endColorstr='#9f58a3',GradientType=1 ); /* IE6-9 */
+        }
     </style>
 </head>
 <body>
-    <form method="post" action="processOllama.php">
-        <label><h1>Find answer in websites database using ollama with Llama 3 model downloaded locally</h1></label>
+    <form method="post" action="processOllama.php" class="ollama">
+        <label><h1>[SETUP OPTION "A"] Find answer in websites database using <strong>ollama with Llama 3 model</strong> downloaded locally</h1></label>
         <br />
         <textarea name="prompt" cols="30" rows="5">What is specialization of programmer and lecturer Michał Żarnecki based on his website content.</textarea>
         <br /><br />
         <button type="submit">Generate text</button>
     </form>
     <form method="post" action="processGpt.php">
-        <label><h1>Find answer in websites database using GPT-4o</h1></label>
+        <label><h1>[SETUP OPTION "B"] Find answer in websites database using <strong>GPT-4o</strong></h1></label>
         <br />
         <textarea name="prompt" cols="30" rows="5">Is Michał Żarnecki programmer the same person as Michał Żarnecki audio engineer.</textarea>
         <br /><br />

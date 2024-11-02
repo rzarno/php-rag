@@ -4,17 +4,29 @@ This application uses LLM (Large Language Model) GPT-4o accessed via OpenAI API 
 The user input is used to retrieve relevant information from the database and then the retrieved information is used to generate the text.
 This approach combines power of transformers and access to source documents.
 
+In this particular application the database of over 1000 websites is searched for information related to specific person.
+The real challenge here is that searched person "Michał Żarnecki" appears in 2 different contexts as 2 different people with same name. 
+The goal is to not only find specific information but also understand the context and avoid mistakes like mixing information about 2 different people with same name.
+
 I described concepts used in this application with more details in article on medium.com
 https://medium.com/@michalzarnecki88/a-guide-to-using-llm-retrieval-augmented-generation-with-php-3bff25ce6616
+
+For setup you need to first have installed Docker and Docker Compose https://docs.docker.com/compose/install/
 
 ## Setup:
 1. Run in CLI: `cd app/src && composer install`
 
-2. Setup language model - choose option with OpenAI API "A" or option "B" with free model via local ollama API
+2. Setup language model - choose from options below:option with OpenAI API
 
-Option B is simplier and requires less resources CPU and RAM, but you need OpenAI API key `https://platform.openai.com/settings/profile?tab=api-keys` 
+"A" with free model via local ollama API3
 
+"B" with OpenAI API
+
+Option B is simpler and requires less resources CPU and RAM, but you need OpenAI API key `https://platform.openai.com/settings/profile?tab=api-keys`
 Option A requires more resources CPU and RAM, but you can run it locally using ollama API. For this option it's good to have GPU.
+
+Follow the instructions for preferred option A or B below:
+
 - A. Download Llama3 model using ollama* and run LLM locally (this option is slower na need more resources but works fully on local env):
 - A.1. Download ollama from `https://ollama.com/download`
 - A.2. Download Llama 3 8B with `ollama pull llama3:latest`
@@ -37,19 +49,29 @@ llama3:latest           	365c0bd3c000	4.7 GB	17 seconds ago
 
 - B. Run GPT-4o via OpenAI API (this option is faster but requires OpenAI API key):
 - B.1. Create api_key.txt file inside app/src and put there your OpenAI API key
-- B.2. use Ada002TextEncoder.php in class in app/src/loadDocuments.php
+- B.2. use Ada002TextEncoder.php in class in app/src/loadDocuments.php by uncomment line 9 and removing line 10 
 
 
-3. Run docker-compose: `docker-compose up`
+3. Run docker-compose:
 
-4. Open address [127.0.0.1](http://127.0.0.1/)  in browser and ask your question
+`docker-compose up`
+
+*HINT: Script need to transform source documents first which can take even 30 min. I you want to save some time just remove part of documents from app/src/documents. 
+
+Wait until containers setup finishes - you should see in the console logs:
+
+`php-app             | Loaded documents complete`\
+`php-app             | Postgres is ready - executing command`\
+`php-app             | [Sat Nov 02 11:32:28.365214 2024] [core:notice] [pid 1:tid 1] AH00094: Command line: 'apache2 -D FOREGROUND'`
+
+4. Open address [127.0.0.1:2037](http://127.0.0.1:2037/)  in browser and ask your question
 
 <img src="app_form.png" />
 
 ## Usage:
 
 ### Web browser
-1. After docker compose finish setup containers open address [127.0.0.1](http://127.0.0.1/) in browser and ask your question
+1. After docker compose finish setup containers open address [127.0.0.1:2037](http://127.0.0.1:2037/) in browser and ask your question
 
 ### CLI
 1. Run docker interactive `docker exec -it php-app sh`
@@ -115,8 +137,14 @@ websites used to fill vector database come from "Website Classification" dataset
 author: Hetul Mehta
 link: https://www.kaggle.com/datasets/hetulmehta/website-classification?resource=download
 
+
 related articles/repositories:
 
 https://medium.com/mlearning-ai/create-a-chatbot-in-python-with-langchain-and-rag-85bfba8c62d2
 
 https://github.com/Krisseck/php-rag
+
+## Contribution is the power!
+
+Please let me know if you find any issues or things to improve. You can contact me on email address michal@zarnecki.pl.
+Feel free to report bugs and propose upgrades in pull requests. 
