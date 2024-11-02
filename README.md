@@ -130,6 +130,14 @@ Given the distinct differences in their professional domains, timelines, and exp
 ```
 
 ## Concept:
+
+Basic concept:
+
+<img src="how_rag_works.webp" width="1000px"/>
+
+
+More details for nerds:
+
 <img src="ai_chatbot_llm_rag.jpg" width="1000px"/>
 
 ## Resources:
