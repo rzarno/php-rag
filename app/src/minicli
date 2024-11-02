@@ -11,7 +11,7 @@ use Minicli\App;
 
 $app = new App([
     'app_path' => [
-        __DIR__ . '/Command',
+        __DIR__ . '/command',
     ],
     'theme' => '\Unicorn',
     'debug' => false,
