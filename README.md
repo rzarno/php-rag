@@ -28,20 +28,10 @@ Option A requires more resources CPU and RAM, but you can run it locally using o
 Follow the instructions for preferred option A or B below:
 
 - A. Download Llama3 model using ollama* and run LLM locally (this option is slower na need more resources but works fully on local env):
-- A.1. Download ollama from `https://ollama.com/download`
-- A.2. Download Llama 3 8B with `ollama pull llama3:latest`
-- A.3. Download mxbai embedding model `ollama pull mxbai-embed-large`
-- A.4. Make sure models are downloaded and ollama is running
 
-```
-ollama list
-NAME                    	ID          	SIZE  	MODIFIED       
-mxbai-embed-large:latest	468836162de7	669 MB	7 seconds ago 	
-llama3:latest           	365c0bd3c000	4.7 GB	17 seconds ago	
-```
+Ollama is provided as part of docker-compose, so you can go directly to run docker in point 3.
 
-- A.5. Start ollama server `ollama serve`
-- A.6. use MxbaiTextEncoder.php class in `app/src/loadDocuments.php` (default)
+If you want to setup ollama locally, please use instructions at the bottom of this file, but in case of using docker it won't be needed. 
 
 *Ollama provides local API serving LLMs:
 "Get up and running with large language models."
@@ -156,3 +146,19 @@ https://github.com/Krisseck/php-rag
 
 Please let me know if you find any issues or things to improve. You can contact me on email address michal@zarnecki.pl.
 Feel free to report bugs and propose upgrades in pull requests. 
+
+## Setup ollama locally
+- A.1. Download ollama from `https://ollama.com/download`
+- A.2. Download Llama 3 8B with `ollama pull llama3:latest`
+- A.3. Download mxbai embedding model `ollama pull mxbai-embed-large`
+- A.4. Make sure models are downloaded and ollama is running
+
+```
+ollama list
+NAME                    	ID          	SIZE  	MODIFIED       
+mxbai-embed-large:latest	468836162de7	669 MB	7 seconds ago 	
+llama3:latest           	365c0bd3c000	4.7 GB	17 seconds ago	
+```
+
+- A.5. Start ollama server `ollama serve`
+- A.6. use MxbaiTextEncoder.php class in `app/src/loadDocuments.php` (default)
