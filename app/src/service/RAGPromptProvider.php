@@ -16,7 +16,7 @@ final class RAGPromptProvider implements StageInterface
         $contextTokenCount = self::CONTEXT_TOKEN_COUNT - TokenizerX::count($prompt) - 20;
         $input = '';
         foreach ($documents as $document) {
-            $input .= $document['text'] . "\n";
+            $input .= $document . "\n\n";
             $tokens = TokenizerX::tokens($input, "gpt-4");
 
             if (count($tokens) > $contextTokenCount) {
