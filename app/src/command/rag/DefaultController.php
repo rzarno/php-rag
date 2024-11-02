@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Command\Rag;
+namespace command\rag;
 
 use app\src\service\gpt\GeneratedTextFromGPTProvider;
 use app\src\service\gpt\Ada002TextEncoder;

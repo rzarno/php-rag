@@ -19,7 +19,9 @@
             "service\\": [""]
         },
         "psr-4": {
-            "Command\\": ["Command"]
+            "command\\": [
+              "command"
+            ]
         }
     },
     "autoload-dev": {
