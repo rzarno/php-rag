@@ -63,6 +63,17 @@ Wait until containers setup finishes - you should see in the console logs:
 ### Web browser
 1. After docker compose finish setup containers open address [127.0.0.1:2037](http://127.0.0.1:2037/) in browser and ask your question
 
+### Use as API
+You can use application as API by using requests as below:
+
+Option A ollama:
+
+`curl -d '{"prompt":"what is result of 2+2?"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:2037/processOllama.php?api`
+
+Option B OpenAI GPT:
+
+`curl -d '{"prompt":"what is result of 2+2?"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:2037/processGpt.php?api`
+
 ### CLI
 1. Run docker interactive `docker exec -it php-app sh`
 
