@@ -28,10 +28,14 @@ $pipeline = (new Pipeline(new FingersCrossedProcessor()))
 
 $response = $pipeline->process($payload);
 
-echo "<h1>RESPONSE:</h1>";
-echo "<br /><br />";
-echo $response;
-echo "<br /><br /><br /><br />";
-echo "<h1>DOCUMENTS:</h1>";
-echo "<br /><br />";
-echo $payload->getRagPrompt();
+if (isset($_GET['api'])) {
+    echo $response;
+} else {
+    echo "<h1>RESPONSE:</h1>";
+    echo "<br /><br />";
+    echo $response;
+    echo "<br /><br /><br /><br />";
+    echo "<h1>DOCUMENTS:</h1>";
+    echo "<br /><br />";
+    echo $payload->getRagPrompt();
+}
