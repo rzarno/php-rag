@@ -134,7 +134,7 @@ Given the distinct differences in their professional domains, timelines, and exp
 
 Basic concept:
 
-<img src="how_rag_works.webp" width="1000px"/>
+<img src="what_is_rag.png" width="1000px"/>
 
 
 More details for nerds:
