@@ -17,7 +17,7 @@ final class DocumentLoader extends AbstractDocumentRepository
         $files = array_diff(scandir($path), array('.', '..'));
         $total = count($files);
 
-        $skipFirstN = 0; //replace this to skip documents for debugging
+        $skipFirstN = 1330; //replace this to skip N documents for debugging
         foreach($files as $index => $file) {
             if ($index < $skipFirstN) {
                 continue;
@@ -36,20 +36,21 @@ final class DocumentLoader extends AbstractDocumentRepository
             }
 
             $this->insertDocument($document, $responseDocument);
-            $this->showProgress($index, $total);
+            $this->showProgress($index, $total, $skipFirstN);
         }
         fwrite(STDOUT, "Loading documents complete\n");
     }
 
-    private function showProgress(int $index, int $total): void
+    private function showProgress(int $index, int $total, int $skip): void
     {
+        $all = $total - $skip;
         $numLoaded = $index + 1;
         $progress = '';
         if ($numLoaded % 10 === 0) {
             for ($i = 0; $i < $numLoaded / 10; $i++) {
                 $progress .= '-';
             }
-            fwrite(STDOUT, "{$progress}\nLoaded {$numLoaded} of {$total} source documents to vector DB\n");
+            fwrite(STDOUT, "{$progress}\nLoaded {$numLoaded} of {$all} source documents to vector DB\n");
         }
     }
 
