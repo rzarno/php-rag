@@ -5,7 +5,7 @@ volumes:
 services:
   php-app:
     build: ./app
-    image: myapp
+    image: php-rag
     container_name: php-app
     env_file:
       - ./env

@@ -1,4 +1,6 @@
-# Creating RAG (Retrieval Augmented Generation) application in PHP
+# Creating Retrieval Augmented Generation application in PHP
+
+<img src="app_running.gif"/>
 
 This application uses LLM (Large Language Model) GPT-4o accessed via OpenAI API in order to generate text based on the user input. 
 The user input is used to retrieve relevant information from the database and then the retrieved information is used to generate the text.
@@ -27,8 +29,7 @@ Option A requires more resources CPU and RAM, but you can run it locally using o
 
 Follow the instructions for preferred option A or B below:
 
-- A. Download Llama3 model using ollama* and run LLM locally (this option is slower na need more resources but works fully on local env):
-
+- A. Download Llama3 model using ollama* and run LLM locally (this option is slower na need more resources but works fully on local env):\
 Ollama is provided as part of docker-compose, so you can go directly to run docker in point 3.
 
 If you want to setup ollama locally, please use instructions at the bottom of this file, but in case of using docker it won't be needed. 
@@ -66,12 +67,10 @@ Wait until containers setup finishes - you should see in the console logs:
 ### Use as API
 You can use application as API by using requests as below:
 
-Option A ollama:
-
+Option A ollama:\
 `curl -d '{"prompt":"what is result of 2+2?"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:2037/processOllama.php?api`
 
-Option B OpenAI GPT:
-
+Option B OpenAI GPT:\
 `curl -d '{"prompt":"what is result of 2+2?"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:2037/processGpt.php?api`
 
 ### CLI
@@ -141,6 +140,15 @@ More details for nerds:
 
 <img src="ai_chatbot_llm_rag.jpg" width="1000px"/>
 
+## Debugging 
+
+To speed up loading documents or use more of them for better retrieval manipulate $skipFirstN value in app/src/service/DocumentLoader.php:20
+
+After changes to PHP scripts rebuild docker with commands:\
+`docker-compose rm`\
+`docker rmi -f php-rag`\
+`docker-compose up`\
+
 ## Resources:
 websites used to fill vector database come from "Website Classification" dataset on Kaggle
 author: Hetul Mehta
@@ -153,10 +161,6 @@ https://medium.com/mlearning-ai/create-a-chatbot-in-python-with-langchain-and-ra
 
 https://github.com/Krisseck/php-rag
 
-## Contribution is the power!
-
-Please let me know if you find any issues or things to improve. You can contact me on email address michal@zarnecki.pl.
-Feel free to report bugs and propose upgrades in pull requests. 
 
 ## Setup ollama locally
 - A.1. Download ollama from `https://ollama.com/download`
@@ -173,3 +177,8 @@ llama3:latest           	365c0bd3c000	4.7 GB	17 seconds ago
 
 - A.5. Start ollama server `ollama serve`
 - A.6. use MxbaiTextEncoder.php class in `app/src/loadDocuments.php` (default)
+
+## Contribution is the power!
+
+Please let me know if you find any issues or things to improve. You can contact me on email address michal@zarnecki.pl.
+Feel free to report bugs and propose upgrades in pull requests. 
