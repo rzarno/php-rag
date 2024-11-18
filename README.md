@@ -147,7 +147,7 @@ To speed up loading documents or use more of them for better retrieval manipulat
 After changes to PHP scripts rebuild docker with commands:\
 `docker-compose rm`\
 `docker rmi -f php-rag`\
-`docker-compose up`\
+`docker-compose up`
 
 ## Resources:
 websites used to fill vector database come from "Website Classification" dataset on Kaggle
