@@ -1,6 +1,6 @@
 # Creating Retrieval Augmented Generation application in PHP
 
-<img src="app_running.gif"/>
+<img src="img/app_running.gif"/>
 
 This application uses LLM (Large Language Model) GPT-4o accessed via OpenAI API in order to generate text based on the user input. 
 The user input is used to retrieve relevant information from the database and then the retrieved information is used to generate the text.
@@ -39,7 +39,7 @@ If you want to setup ollama locally, please use instructions at the bottom of th
 `https://ollama.com/`
 
 - B. Run GPT-4o via OpenAI API (this option is faster but requires OpenAI API key):
-- B.1. Create api_key.txt file inside app/src and put there your OpenAI API key
+- B.1. Create .env file inside app/src and put there your OpenAI API key
 - B.2. use Ada002TextEncoder.php in class in app/src/loadDocuments.php by uncomment line 9 and removing line 10 
 
 
@@ -57,7 +57,7 @@ Wait until containers setup finishes - you should see in the console logs:
 
 4. Open address [127.0.0.1:2037](http://127.0.0.1:2037/)  in browser and ask your question
 
-<img src="app_form.png" />
+<img src="img/app_form.png" />
 
 ## Usage:
 
@@ -133,12 +133,12 @@ Given the distinct differences in their professional domains, timelines, and exp
 
 Basic concept:
 
-<img src="what_is_rag.png" width="1000px"/>
+<img src="img/what_is_rag.png" width="1000px"/>
 
 
 More details for nerds:
 
-<img src="ai_chatbot_llm_rag.jpg" width="1000px"/>
+<img src="img/ai_chatbot_llm_rag.jpg" width="1000px"/>
 
 ## Debugging 
 
