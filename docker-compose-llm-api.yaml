@@ -1,0 +1,49 @@
+version: '3'
+volumes:
+  psql-data:
+
+services:
+  php-app:
+    build: ./app
+    image: php-rag
+    container_name: php-app
+    env_file:
+      - ./env
+    depends_on:
+      - postgres
+      - ollama-container
+    command: ["./wait-for-postgres.sh", "", "apache2-foreground"]
+    ports:
+      - 2037:80
+    networks:
+      app-env:
+
+
+  postgres:
+    hostname: postgres
+    image: ankane/pgvector
+    restart: always
+    env_file:
+      - ./env
+    volumes:
+      - ./script/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      app-env:
+      interface:
+
+
+  pgadmin:
+    image: fenglc/pgadmin4
+    container_name: pgadmin
+    env_file:
+      - ./env
+    depends_on:
+      - postgres
+    ports:
+      - 5050:5050
+    networks:
+      interface:
+    
+networks:
+  app-env:
+  interface:

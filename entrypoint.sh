@@ -9,7 +9,7 @@ pid=$!
 sleep 5
 
 echo "🔴 Retrieve LLAMA3 model..."
-ollama pull llama3
+ollama pull llama3.3
 echo "🟢 Done!"
 
 echo "🔴 Retrieve mxbai embedding model..."
