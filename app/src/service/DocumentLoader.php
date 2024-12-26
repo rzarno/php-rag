@@ -44,7 +44,7 @@ final class DocumentLoader extends AbstractDocumentRepository
     private function showProgress(int $index, int $total, int $skip): void
     {
         $all = $total - $skip;
-        $numLoaded = $index + 1;
+        $numLoaded = $index - $skip + 1;
         $progress = '';
         if ($numLoaded % 10 === 0) {
             for ($i = 0; $i < $numLoaded / 10; $i++) {

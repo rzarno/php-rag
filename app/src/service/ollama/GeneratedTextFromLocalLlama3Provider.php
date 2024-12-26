@@ -27,7 +27,7 @@ final class GeneratedTextFromLocalLlama3Provider extends AbstractOllamaAPIClient
     protected function getBodyParams(string $input): array
     {
         return [
-            "model" => "llama3.3",
+            "model" => "llama3.2",
             "prompt" => $input
         ];
     }

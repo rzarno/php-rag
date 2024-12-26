@@ -14,7 +14,7 @@ The application demonstrates an interesting use case of distinguishing between t
 
 ## 🚀 Features
 
-- Multiple LLM support (GPT-4, Claude-3.5, Llama3.3, Mixtral, Gemini2)
+- Multiple LLM support (GPT-4, Claude-3.5, Llama3.2, Mixtral, Gemini2)
 - Vector database for efficient information retrieval
 - Web interface, API endpoints, and CLI access
 - Context-aware response generation
@@ -35,12 +35,12 @@ The application demonstrates an interesting use case of distinguishing between t
     - Copy `.env-sample` to `.env` in `app/src`
     - Choose your model in `.env`:
       ```env
-      MODEL=<model-option>  # Options: GPT-4o, Claude-3.5, Llama3.3, Mixtral, Gemini2
+      MODEL=<model-option>  # Options: GPT-4o, Claude-3.5, Llama3.2, Mixtral, Gemini2
       ```
 
 3. **API Configuration**
 
-   #### Local API Options (Mixtral, Llama3.3)
+   #### Local API Options (Mixtral, Llama3.2)
     - No API key required (go directly to point 4.)
     - Requires more CPU/RAM
     - GPU recommended for better performance
