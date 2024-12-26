@@ -63,15 +63,8 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <form method="post" action="processOllama.php?api=1" class="ollama">
-        <label><h1>[SETUP OPTION "A"] Find answer in websites database using <strong>ollama with Llama 3 model</strong> downloaded locally</h1></label>
-        <br />
-        <textarea name="prompt" cols="30" rows="5">What is specialization of programmer and lecturer Michał Żarnecki based on his website content.</textarea>
-        <br /><br />
-        <button type="submit">Generate text</button>
-    </form>
-    <form method="post" action="processGpt.php?api=1">
-        <label><h1>[SETUP OPTION "B"] Find answer in websites database using <strong>GPT-4o</strong></h1></label>
+    <form method="post" action="process.php?api=1">
+        <label><h1> Find answer in websites database using LLM</h1></label>
         <br />
         <textarea name="prompt" cols="30" rows="5">Is Michał Żarnecki programmer the same person as Michał Żarnecki audio engineer.</textarea>
         <br /><br />

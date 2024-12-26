@@ -1,13 +1,16 @@
 <?php
 
+use Dotenv\Dotenv;
 use service\DocumentLoader;
-use service\ollama\MxbaiTextEncoder;
-use service\openai\Ada002TextEncoder;
+use service\ServicesForSpecificModelFactory;
 
 require __DIR__ . '/vendor/autoload.php';
 
-//$textEncoder = new Ada002TextEncoder(); //Use for setup option "B" with OpenAI API
-$textEncoder = new MxbaiTextEncoder(); //Use for setup option "A" with ollama Llama local model
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+$model = $_ENV['MODEL'];
+
+$textEncoder = (new ServicesForSpecificModelFactory())->getEmbeddingsService($model);
 $documentLoader = new DocumentLoader($textEncoder);
 
 #load documents

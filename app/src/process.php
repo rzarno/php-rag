@@ -1,20 +1,26 @@
 <?php
 
-use service\ollama\GeneratedTextFromLocalLlama3Provider;
-use service\ollama\MxbaiTextEncoder;
+use service\openai\Ada002TextEncoder;
 use League\Pipeline\FingersCrossedProcessor;
 use League\Pipeline\Pipeline;
 use service\DocumentProvider;
+use service\openai\GeneratedTextFromGPTProvider;
 use service\pipeline\Payload;
 use service\PromptResolver;
 use service\RAGPromptProvider;
+use service\ServicesForSpecificModelFactory;
 
 require __DIR__ . '/vendor/autoload.php';
 
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+$model = $_ENV['MODEL'];
+$servicesForModelFactory = new ServicesForSpecificModelFactory();
+
 $promptResolver = new PromptResolver();
-$textEncoder = new MxbaiTextEncoder();
+$textEncoder = $servicesForModelFactory->getEmbeddingsService($model);
 $documentProvider = new DocumentProvider();
-$generatedTextProvider = new GeneratedTextFromLocalLlama3Provider();
+$generatedTextProvider = $servicesForModelFactory->getGeneratedTextProvider($model);
 $ragPromptProvider = new RAGPromptProvider();
 
 $payload = new Payload();
