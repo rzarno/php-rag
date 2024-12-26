@@ -1,10 +1,8 @@
 <?php
 
-use service\openai\Ada002TextEncoder;
 use League\Pipeline\FingersCrossedProcessor;
 use League\Pipeline\Pipeline;
 use service\DocumentProvider;
-use service\openai\GeneratedTextFromGPTProvider;
 use service\pipeline\Payload;
 use service\PromptResolver;
 use service\RAGPromptProvider;
