@@ -132,7 +132,7 @@ docker-compose up
 To rebuild after pg_vector db related changes:
 ```bash
 docker-compose rm
- docker rmi -f ankane/pgvector
+docker rmi -f ankane/pgvector
 docker-compose up
 ```
 

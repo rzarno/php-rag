@@ -35,7 +35,7 @@ class ServicesForSpecificModelFactory
         $model = strtolower($model);
         $mapping = [
             'gpt-4o' => Ada002TextEncoder::class,
-            'claude-3.5' => ClaudeTextEncoder::class,
+            'claude-3.5' => Ada002TextEncoder::class,
             'llama3.2' => MxbaiTextEncoder::class,
             'mixtral' => MxbaiTextEncoder::class,
             'gemini2' => GeckoTextEncoder::class,
