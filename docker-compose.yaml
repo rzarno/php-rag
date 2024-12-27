@@ -47,13 +47,12 @@ services:
   ollama-container:
     image: ollama/ollama:latest
     ports:
-      - 11434:11434
+      - 11438:11434
     volumes:
       - .:/code
       - ./ollama/ollama:/root/.ollama
       - ./entrypoint.sh:/entrypoint.sh
     container_name: ollama-container
-    pull_policy: always
     tty: true
     restart: always
     environment:

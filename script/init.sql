@@ -2,8 +2,9 @@ CREATE EXTENSION IF NOT EXISTS vector;
 
 CREATE TABLE IF NOT EXISTS document (
     id serial PRIMARY KEY,
-    embedding vector,
-    text text,
+    name text NOT NULL,
+    embedding vector NOT NULL,
+    text text NOT NULL,
     created_at timestamptz DEFAULT now()
 );
 

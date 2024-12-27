@@ -8,12 +8,29 @@ use service\pipeline\Payload;
 
 final class DocumentProvider extends AbstractDocumentRepository implements StageInterface
 {
-    public function getSimilarDocuments(string $prompt, string $embeddingPrompt): array
-    {
-        $stmt = $this->connection->prepare("SELECT text from document order by embedding <-> :embeddingPrompt limit 15;");
+    public function getSimilarDocuments(
+        string $prompt,
+        string $embeddingPrompt,
+        bool $useReranking = false
+    ): array {
+        $stmt = $this->connection->prepare("SELECT name, text from document order by embedding <-> :embeddingPrompt limit 10;");
         $stmt->execute(['embeddingPrompt' => $embeddingPrompt]);
         $documents = $stmt->fetchAll();
-        return $this->rerank($prompt, $documents);
+        error_log('RETRIEVED DOCUMENTS:'. PHP_EOL);
+        $documentsNames = [];
+        foreach ($documents as &$document) {
+            $documentsNames[] = $document['name'];
+            error_log($document['name'] . PHP_EOL);
+        }
+        if ($useReranking) {
+            $documents = $this->rerank($prompt, $documents);
+        } else {
+            $documents = array_map(function ($document) {
+                return $document['text'];
+            }, $documents);
+        }
+
+        return [$documents, $documentsNames];
     }
 
     /**
@@ -40,8 +57,13 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
      */
     public function __invoke($payload)
     {
-        return $payload->setSimilarDocuments(
-            $this->getSimilarDocuments($payload->getPrompt(), $payload->getEmbeddingPrompt())
+        [$documents, $documentsNames] = $this->getSimilarDocuments(
+            $payload->getPrompt(),
+            $payload->getEmbeddingPrompt()
         );
+        $payload->setSimilarDocuments($documents);
+        $payload->setSimilarDocumentsNames($documentsNames);
+
+        return $payload;
     }
 }

@@ -1,20 +1,25 @@
 <?php
 
-use service\openai\Ada002TextEncoder;
+use Dotenv\Dotenv;
 use League\Pipeline\FingersCrossedProcessor;
 use League\Pipeline\Pipeline;
 use service\DocumentProvider;
-use service\openai\GeneratedTextFromGPTProvider;
 use service\pipeline\Payload;
 use service\PromptResolver;
 use service\RAGPromptProvider;
+use service\ServicesForSpecificModelFactory;
 
 require __DIR__ . '/vendor/autoload.php';
 
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+$model = $_ENV['MODEL'];
+$servicesForModelFactory = new ServicesForSpecificModelFactory();
+
 $promptResolver = new PromptResolver();
-$textEncoder = new Ada002TextEncoder();
+$textEncoder = $servicesForModelFactory->getEmbeddingsService($model);
 $documentProvider = new DocumentProvider();
-$generatedTextProvider = new GeneratedTextFromGPTProvider();
+$generatedTextProvider = $servicesForModelFactory->getGeneratedTextProvider($model);
 $ragPromptProvider = new RAGPromptProvider();
 
 $payload = new Payload();
@@ -29,7 +34,10 @@ $pipeline = (new Pipeline(new FingersCrossedProcessor()))
 $response = $pipeline->process($payload);
 
 if (isset($_GET['api'])) {
-    echo $response;
+    echo json_encode([
+        'response' => $response,
+        'documents' => $payload->getSimilarDocumentsNames()
+    ]);
 } else {
     echo "<h1>RESPONSE:</h1>";
     echo "<br /><br />";

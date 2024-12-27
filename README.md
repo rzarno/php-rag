@@ -1,184 +1,171 @@
-# Creating Retrieval Augmented Generation application in PHP
+# RAG PHP Application
 
-<img src="app_running.gif"/>
+A Retrieval Augmented Generation application that combines the power of Large Language Models with document retrieval capabilities.
 
-This application uses LLM (Large Language Model) GPT-4o accessed via OpenAI API in order to generate text based on the user input. 
-The user input is used to retrieve relevant information from the database and then the retrieved information is used to generate the text.
-This approach combines power of transformers and access to source documents.
+![Application Demo](img/app_running.gif)
 
-In this particular application the database of over 1000 websites is searched for information related to specific person.
-The real challenge here is that searched person "Michał Żarnecki" appears in 2 different contexts as 2 different people with same name. 
-The goal is to not only find specific information but also understand the context and avoid mistakes like mixing information about 2 different people with same name.
+## 🎯 Overview
 
-I described concepts used in this application with more details in article on medium.com
-https://medium.com/@michalzarnecki88/a-guide-to-using-llm-retrieval-augmented-generation-with-php-3bff25ce6616
+This application leverages OpenAI's GPT-4 and other LLMs to generate contextually relevant responses based on user input. It searches through a database of over 1,000 websites to provide accurate information, with special handling for disambiguating between entities with identical names. It can be used for semantic search and context aware question-answering for any text dataset. 
 
-For setup you need to first have installed Docker and Docker Compose https://docs.docker.com/compose/install/
+The application demonstrates an interesting use case of distinguishing between two different people named "Michał Żarnecki" in different contexts, showcasing the power of context-aware information retrieval.
 
-## Setup:
-1. Run in CLI: `cd app/src && composer install`
+📖 For a detailed explanation of concepts used in this application, check out my article on [Medium](https://medium.com/@michalzarnecki88/a-guide-to-using-llm-retrieval-augmented-generation-with-php-3bff25ce6616).
 
-2. Setup language model - choose from options below:option with OpenAI API
+## 🚀 Features
 
-"A" with free model via local ollama API3
+- Multiple LLM support (GPT-4, Claude-3.5, Llama3.2, Mixtral, Gemini2)
+- Vector database for efficient information retrieval
+- Web interface, API endpoints, and CLI access
+- Context-aware response generation
+- Docker-based setup for easy deployment
 
-"B" with OpenAI API
+## 📋 Prerequisites
 
-Option B is simpler and requires less resources CPU and RAM, but you need OpenAI API key `https://platform.openai.com/settings/profile?tab=api-keys`
-Option A requires more resources CPU and RAM, but you can run it locally using ollama API. For this option it's good to have GPU.
+- Docker and Docker Compose ([Installation Guide](https://docs.docker.com/compose/install/))
 
-Follow the instructions for preferred option A or B below:
+## 🛠️ Installation
 
-- A. Download Llama3 model using ollama* and run LLM locally (this option is slower na need more resources but works fully on local env):\
-Ollama is provided as part of docker-compose, so you can go directly to run docker in point 3.
+1. **Install Dependencies**
+   ```bash
+   cd app/src && composer install
+   ```
 
-If you want to setup ollama locally, please use instructions at the bottom of this file, but in case of using docker it won't be needed. 
+2. **Configure Environment**
+    - Copy `.env-sample` to `.env` in `app/src`
+    - Choose your model in `.env`:
+      ```env
+      MODEL=<model-option>  # Options: GPT-4o, Claude-3.5, Llama3.2, Mixtral, Gemini2
+      ```
 
-*Ollama provides local API serving LLMs:
-"Get up and running with large language models."
-`https://ollama.com/`
+3. **API Configuration**
 
-- B. Run GPT-4o via OpenAI API (this option is faster but requires OpenAI API key):
-- B.1. Create api_key.txt file inside app/src and put there your OpenAI API key
-- B.2. use Ada002TextEncoder.php in class in app/src/loadDocuments.php by uncomment line 9 and removing line 10 
+   #### Local API Options (Mixtral, Llama3.2)
+    - No API key required (go directly to point 4.)
+    - Requires more CPU/RAM
+    - GPU recommended for better performance
+    - Uses [Ollama](https://ollama.com/) for local model serving
 
+   #### Cloud API Options (GPT-4o, Claude, Gemini)
+    - Requires API key
+    - Lower resource requirements
+    - Add to `.env`:
+      ```env
+      OPENAI_API_KEY=your-api-key
+      ```
+      (or modify other env variable related to chosen model)
+    - Get OpenAI API key from [OpenAI Platform](https://platform.openai.com/settings/profile?tab=api-keys) (or one related to other API based model)
 
-3. Run docker-compose:
+4. **Launch Application**
+   ```bash
+   docker-compose up
+   ```
+   > Note: In case of using API access to LLM (other option than Ollama) run `docker-compose -f docker-compose-llm-api.yaml up` to avoid waisting time on downloading models to local env. 
 
-`docker-compose up`
+   > Note: Initial document transformation may take long time. As default only part of documents is loaded. To process all documents, modify `$skipFirstN` in `app/src/service/DocumentLoader.php:20`.
 
-*HINT: Script need to transform source documents first which can take even 30 min. I you want to save some time just remove part of documents from app/src/documents. 
+5. **Access Application**
+    - Wait for the setup completion message:
+      ```
+      php-app             | Loaded documents complete
+      php-app             | Postgres is ready - executing command
+      php-app             | [Sat Nov 02 11:32:28.365214 2024] [core:notice] [pid 1:tid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+      ```
+    - Open [http://127.0.0.1:2037](http://127.0.0.1:2037) in your browser
 
-Wait until containers setup finishes - you should see in the console logs:
+## 💻 Usage
 
-`php-app             | Loaded documents complete`\
-`php-app             | Postgres is ready - executing command`\
-`php-app             | [Sat Nov 02 11:32:28.365214 2024] [core:notice] [pid 1:tid 1] AH00094: Command line: 'apache2 -D FOREGROUND'`
+### Web Interface
+Visit [http://127.0.0.1:2037](http://127.0.0.1:2037) and enter your query.
 
-4. Open address [127.0.0.1:2037](http://127.0.0.1:2037/)  in browser and ask your question
+![Application Form](img/app_form.png)
 
-<img src="app_form.png" />
-
-## Usage:
-
-### Web browser
-1. After docker compose finish setup containers open address [127.0.0.1:2037](http://127.0.0.1:2037/) in browser and ask your question
-
-### Use as API
-You can use application as API by using requests as below:
-
-Option A ollama:\
-`curl -d '{"prompt":"what is result of 2+2?"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:2037/processOllama.php?api`
-
-Option B OpenAI GPT:\
-`curl -d '{"prompt":"what is result of 2+2?"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:2037/processGpt.php?api`
-
-### CLI
-1. Run docker interactive `docker exec -it php-app sh`
-
-2. Run in CLI: `php minicli rag`
-
-3. Ask question
-
-## Example output:
-#### Example 1
-```
-##### INPUT:
-What is the result of 2 + 2?
-##### RESPONSE:
-The result of 2 + 2 is 4.
-```
-
-#### Example 2
-```
-##### INPUT: 
-what is specialization of Michał Żarnecki based on his website content
-##### RESPONSE:
-Michał Żarnecki is a programmer and lecturer specializing in several key areas related to modern software development and data-driven technologies.
- 
-His expertise includes:
-1. **Programming Languages**: Python, PHP, JavaScript.
-2. **AI and Machine Learning**: Designing systems and solutions related to artificial intelligence and machine learning.
-3. **Data Mining and Big Data**: Extracting valuable insights from large datasets. 
-4. **Natural Language Processing (NLP)**: Working on systems that understand and generate human language. 
-5. **Software Development Frameworks**: Utilizing various tools and frameworks such as Streamlit, TensorFlow, PyTorch, and langchain. 
-6. **Database Systems**: Implementing and working with databases like PostgreSQL, Elasticsearch, Neo4j, and others.
- 
-His portfolio highlights projects such as an AI chatbot for analyzing company documents and a self-driving vehicle based on TensorFlow and Raspberry Pi.
-Additionally, he has contributed to conferences and created e-learning courses focused on machine learning, underscoring his dual role as a developer and educator.
+### API Endpoint
+```bash
+curl -d '{"prompt":"what is result of 2+2?"}' \
+     -H "Content-Type: application/json" \
+     -X POST \
+     http://127.0.0.1:2037/process.php?api
 ```
 
-#### Example 3
-```
-##### INPUT: 
-Is Michał Żarnecki programmer the same person as Michał Żarnecki audio engineer?
-
-##### RESPONSE:
-Based on the information provided, it appears that Michał Żarnecki the programmer and Michał Żarnecki the audio engineer are not the same person.
-Here’s why:
-1. **Fields of Expertise**:
- - Michał Żarnecki, the audio engineer, was a well-known operator and reżyser dźwięku (sound director) in Poland, with notable contributions to the Polish film industry, as mentioned in the Wikipedia excerpt.
- - Michal Żarnecki, the programmer, has a portfolio focused on programming in Python, PHP, and JavaScript, with projects related to AI, machine learning, data mining, and software development.
-2. **Lifespan**:
- - Michał Żarnecki the audio engineer was born on November 12, 1946, and passed away on November 21, 2016.
- - The projects listed in Michał Żarnecki the programmer’s portfolio date from 2014 to 2016, which would be conflicting if he had passed away in 2016 and was actively working in those years. 
-3. **Occupational Focus**:
- - The audio engineer has a career documented in film sound engineering and education.
- - The programmer’s career is centered around software development, mobile applications, ERP systems, and consulting in technology.
-
-Given the distinct differences in their professional domains, timelines, and expertise, it is highly unlikely that they are the same individual
+### CLI Interface
+```bash
+docker exec -it php-app sh
+php minicli rag
 ```
 
-## Concept:
 
-Basic concept:
+## 📝 Example Outputs
 
-<img src="what_is_rag.png" width="1000px"/>
-
-
-More details for nerds:
-
-<img src="ai_chatbot_llm_rag.jpg" width="1000px"/>
-
-## Debugging 
-
-To speed up loading documents or use more of them for better retrieval manipulate $skipFirstN value in app/src/service/DocumentLoader.php:20
-
-After changes to PHP scripts rebuild docker with commands:\
-`docker-compose rm`\
-`docker rmi -f php-rag`\
-`docker-compose up`
-
-## Resources:
-websites used to fill vector database come from "Website Classification" dataset on Kaggle
-author: Hetul Mehta
-link: https://www.kaggle.com/datasets/hetulmehta/website-classification?resource=download
-
-
-related articles/repositories:
-
-https://medium.com/mlearning-ai/create-a-chatbot-in-python-with-langchain-and-rag-85bfba8c62d2
-
-https://github.com/Krisseck/php-rag
-
-
-## Setup ollama locally
-- A.1. Download ollama from `https://ollama.com/download`
-- A.2. Download Llama 3 8B with `ollama pull llama3:latest`
-- A.3. Download mxbai embedding model `ollama pull mxbai-embed-large`
-- A.4. Make sure models are downloaded and ollama is running
-
+### Basic Arithmetic
 ```
-ollama list
-NAME                    	ID          	SIZE  	MODIFIED       
-mxbai-embed-large:latest	468836162de7	669 MB	7 seconds ago 	
-llama3:latest           	365c0bd3c000	4.7 GB	17 seconds ago	
+Input: What is the result of 2 + 2?
+Response: The result of 2 + 2 is 4.
 ```
 
-- A.5. Start ollama server `ollama serve`
-- A.6. use MxbaiTextEncoder.php class in `app/src/loadDocuments.php` (default)
+### Complex Context Analysis
+```
+Input: Is Michał Żarnecki programmer the same person as Michał Żarnecki audio engineer?
+Response: These are two different individuals:
 
-## Contribution is the power!
+- The programmer specializes in Python, PHP, JavaScript, and AI/ML technologies
+- The audio engineer (1946-2016) was a renowned sound director in Polish film
+```
 
-Please let me know if you find any issues or things to improve. You can contact me on email address michal@zarnecki.pl.
-Feel free to report bugs and propose upgrades in pull requests. 
+## 🔄 Architecture
+
+### Basic Concept
+![RAG Basic Concept](img/what_is_rag.png)
+
+### Detailed Architecture
+![Detailed Architecture](img/ai_chatbot_llm_rag.jpg)
+
+## 🐛 Debugging
+
+To rebuild after PHP script changes:
+```bash
+docker-compose rm
+docker rmi -f php-rag
+docker-compose up
+```
+
+To rebuild after pg_vector db related changes:
+```bash
+docker-compose rm
+docker rmi -f ankane/pgvector
+docker-compose up
+```
+
+## 📚 Resources
+
+- Dataset: "Website Classification" by Hetul Mehta on [Kaggle](https://www.kaggle.com/datasets/hetulmehta/website-classification)
+- Related Articles:
+    - [Create a Chatbot with Langchain and RAG](https://medium.com/mlearning-ai/create-a-chatbot-in-python-with-langchain-and-rag-85bfba8c62d2)
+    - [PHP-RAG Repository](https://github.com/Krisseck/php-rag)
+
+## 🔧 Local Ollama Setup
+
+1. Download [Ollama](https://ollama.com/download)
+2. Pull required models:
+   ```bash
+   ollama pull llama3:latest
+   ollama pull mxbai-embed-large
+   ```
+3. Verify installation:
+   ```bash
+   ollama list
+   ```
+4. Start server:
+   ```bash
+   ollama serve
+   ```
+5. Use `MxbaiTextEncoder.php` class in `app/src/loadDocuments.php`
+
+## 👥 Contributing
+
+Found a bug or have an improvement in mind? Please:
+- Report issues
+- Submit pull requests
+- Contact: michal@zarnecki.pl
+
+Your contributions make this project better for everyone!

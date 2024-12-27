@@ -1,5 +1,5 @@
 vendor/
 .idea/
-app/src/api_key.txt
 app/src/logs/
 /ollama/
+app/src/.env
