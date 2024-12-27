@@ -34,7 +34,10 @@ $pipeline = (new Pipeline(new FingersCrossedProcessor()))
 $response = $pipeline->process($payload);
 
 if (isset($_GET['api'])) {
-    echo $response;
+    echo json_encode([
+        'response' => $response,
+        'documents' => $payload->getSimilarDocumentsNames()
+    ]);
 } else {
     echo "<h1>RESPONSE:</h1>";
     echo "<br /><br />";

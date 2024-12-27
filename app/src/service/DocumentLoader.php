@@ -35,7 +35,7 @@ final class DocumentLoader extends AbstractDocumentRepository
                 error_log($e->getMessage());
             }
 
-            $this->insertDocument($document, $responseDocument);
+            $this->insertDocument($file, $document, $responseDocument);
             $this->showProgress($index, $total, $skipFirstN);
         }
         fwrite(STDOUT, "Loading documents complete\n");
@@ -54,11 +54,15 @@ final class DocumentLoader extends AbstractDocumentRepository
         }
     }
 
-    private function insertDocument(string $document, string $embedding): bool
-    {
-        $statement = $this->connection->prepare("INSERT INTO document(text, embedding) VALUES(:doc, :embed)");
+    private function insertDocument(
+        string $name,
+        string $document,
+        string $embedding
+    ): bool {
+        $statement = $this->connection->prepare("INSERT INTO document(name, text, embedding) VALUES(:name, :doc, :embed)");
 
         return $statement->execute([
+            'name' => $name,
             'doc' => $document,
             'embed' => $embedding,
         ]);

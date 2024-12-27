@@ -9,8 +9,10 @@ final class Payload
     private string $prompt;
     private string $embeddingPrompt;
     private array $similarDocuments;
+    private array $similarDocumentsNames;
     private string $ragPrompt;
     private string $generatedText;
+    private bool $useReranking;
 
     public function getPrompt(): string
     {
@@ -45,6 +47,17 @@ final class Payload
         return $this;
     }
 
+    public function getSimilarDocumentsNames(): array
+    {
+        return $this->similarDocumentsNames;
+    }
+
+    public function setSimilarDocumentsNames(array $similarDocumentsNames): self
+    {
+        $this->similarDocumentsNames = $similarDocumentsNames;
+        return $this;
+    }
+
     public function getRagPrompt(): string
     {
         return $this->ragPrompt;
@@ -67,5 +80,14 @@ final class Payload
         return $this;
     }
 
+    public function useReranking(): bool
+    {
+        return $this->useReranking;
+    }
 
+    public function setUseReranking(bool $useReranking): self
+    {
+        $this->useReranking = $useReranking;
+        return $this;
+    }
 }

@@ -15,12 +15,13 @@ class ServicesForSpecificModelFactory
 {
     public function getGeneratedTextProvider(string $model): GeneratedTextProviderInterface
     {
+        $model = strtolower($model);
         $mapping = [
-            'GPT-4o' => GeneratedTextFromGPTProvider::class,
-            'Claude-3.5' => GeneratedTextFromClaudeProvider::class,
-            'Llama3.2' => GeneratedTextFromLocalLlama3Provider::class,
-            'Mixtral' => GeneratedTextFromMixtralProvider::class,
-            'Gemini2' => GeneratedTextFromGeminiProvider::class,
+            'gpt-4o' => GeneratedTextFromGPTProvider::class,
+            'claude-3.5' => GeneratedTextFromClaudeProvider::class,
+            'llama3.2' => GeneratedTextFromLocalLlama3Provider::class,
+            'mixtral' => GeneratedTextFromMixtralProvider::class,
+            'gemini2' => GeneratedTextFromGeminiProvider::class,
         ];
 
         if (! isset($mapping[$model])) {
@@ -31,12 +32,13 @@ class ServicesForSpecificModelFactory
 
     public function getEmbeddingsService(string $model): TextEncoderInterface
     {
+        $model = strtolower($model);
         $mapping = [
-            'GPT-4o' => Ada002TextEncoder::class,
-            'Claude-3.5' => ClaudeTextEncoder::class,
-            'Llama3.2' => MxbaiTextEncoder::class,
-            'Mixtral' => MxbaiTextEncoder::class,
-            'Gemini2' => GeckoTextEncoder::class,
+            'gpt-4o' => Ada002TextEncoder::class,
+            'claude-3.5' => ClaudeTextEncoder::class,
+            'llama3.2' => MxbaiTextEncoder::class,
+            'mixtral' => MxbaiTextEncoder::class,
+            'gemini2' => GeckoTextEncoder::class,
         ];
 
         if (! isset($mapping[$model])) {

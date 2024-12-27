@@ -60,7 +60,7 @@ The application demonstrates an interesting use case of distinguishing between t
    ```bash
    docker-compose up
    ```
-   > Note: In case of using API access to LLM (other option than Ollama) run `docker-compose up -f docker-compose-llm-api.yaml` to avoid waisting time on downloading models to local env. 
+   > Note: In case of using API access to LLM (other option than Ollama) run `docker-compose -f docker-compose-llm-api.yaml up` to avoid waisting time on downloading models to local env. 
 
    > Note: Initial document transformation may take long time. As default only part of documents is loaded. To process all documents, modify `$skipFirstN` in `app/src/service/DocumentLoader.php:20`.
 
@@ -126,6 +126,13 @@ To rebuild after PHP script changes:
 ```bash
 docker-compose rm
 docker rmi -f php-rag
+docker-compose up
+```
+
+To rebuild after pg_vector db related changes:
+```bash
+docker-compose rm
+ docker rmi -f ankane/pgvector
 docker-compose up
 ```
 

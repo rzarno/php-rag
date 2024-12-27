@@ -11,7 +11,6 @@ services:
       - ./env
     depends_on:
       - postgres
-      - ollama-container
     command: ["./wait-for-postgres.sh", "", "apache2-foreground"]
     ports:
       - 2037:80
