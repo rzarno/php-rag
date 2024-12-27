@@ -3,7 +3,7 @@
 namespace service;
 use service\claude\ClaudeTextEncoder;
 use service\claude\GeneratedTextFromClaudeProvider;
-use service\gemini\GeckoTextEncoder;
+use service\gemini\GeminiTextEncoder;
 use service\gemini\GeneratedTextFromGeminiProvider;
 use service\ollama\GeneratedTextFromLocalLlama3Provider;
 use service\ollama\GeneratedTextFromMixtralProvider;
@@ -38,7 +38,7 @@ class ServicesForSpecificModelFactory
             'claude-3.5' => Ada002TextEncoder::class,
             'llama3.2' => MxbaiTextEncoder::class,
             'mixtral' => MxbaiTextEncoder::class,
-            'gemini2' => GeckoTextEncoder::class,
+            'gemini2' => GeminiTextEncoder::class,
         ];
 
         if (! isset($mapping[$model])) {

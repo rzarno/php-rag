@@ -2,15 +2,11 @@
 
 namespace service\gemini;
 
-
 use Dotenv\Dotenv;
-use Google\Cloud\Core\ServiceBuilder;
 
 abstract class AbstractGeminiAPIClient
 {
-    protected $client;
-    protected string $projectId;
-    protected string $location = 'us-central1';
+    protected string $apiKey;
 
     public function __construct()
     {
@@ -18,25 +14,37 @@ abstract class AbstractGeminiAPIClient
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
         $dotenv->load();
 
-        // Get project ID from environment
-        $this->projectId = $_ENV['GOOGLE_PROJECT_ID'];
-        $credentialsPath = $_ENV['GOOGLE_CREDENTIALS_PATH'];
-
-        // Initialize Google Cloud client
-        $cloud = new ServiceBuilder([
-            'keyFilePath' => $credentialsPath
-        ]);
-
-        $this->client = $cloud->aiPlatform();
+        // Get API key from environment
+        $this->apiKey = $_ENV['GOOGLE_GEMINI_API_KEY'];
     }
 
-    protected function getModelPath(string $modelId): string
+    protected function request(string $method, string $model, array $data): array
     {
-        return sprintf(
-            'projects/%s/locations/%s/publishers/google/models/%s',
-            $this->projectId,
-            $this->location,
-            $modelId
-        );
+        $url = "https://generativelanguage.googleapis.com/v1beta/models/$model:$method?key=" . $this->apiKey;
+
+        $jsonData = json_encode($data);
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $jsonData,
+            CURLOPT_HTTPHEADER => ['content-type: application/json'],
+        ]);
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $responseData = json_decode($response, true);
+
+        return $responseData;
     }
 }
