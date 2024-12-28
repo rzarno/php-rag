@@ -6,7 +6,7 @@ namespace test;
 use PHPUnit\Framework\TestCase;
 use service\PromptResolver;
 
-final class PromptResolverTest  extends TestCase
+final class PromptResolverTest extends TestCase
 {
     public function testPrompt_isDefaultPromptProvided_whenNoInputIsSend(): void
     {
