@@ -3,10 +3,14 @@
 namespace service\claude;
 
 use Dotenv\Dotenv;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractClaudeAPIClient
 {
     protected string $apiKey;
+    protected Client $httpClient;
 
     public function __construct()
     {
@@ -16,56 +20,50 @@ abstract class AbstractClaudeAPIClient
 
         // Get API key from environment
         $this->apiKey = $_ENV['ANTHROPIC_API_KEY'];
+
+        // Initialize Guzzle HTTP client
+        $this->httpClient = new Client([
+            'base_uri' => 'https://api.anthropic.com/v1/',
+            'timeout'  => 10.0,
+        ]);
     }
 
     protected function request(string $prompt, string $endpoint, string $model): array
     {
-        $url = 'https://api.anthropic.com/v1/' . $endpoint;
-
-        $maxTokens = 2048;
-        $temperature = 0;
-        $messages = [
-            [
-                'role' => 'user',
-                'content' => $prompt
-            ]
-        ];
+        $url = $endpoint;
 
         $data = [
             'model' => $model,
-            'max_tokens' => $maxTokens,
-            'temperature' => $temperature,
-            'messages' => $messages
+            'max_tokens' => 2048,
+            'temperature' => 0,
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => $prompt
+                ]
+            ]
         ];
 
-        $jsonData = json_encode($data);
+        try {
+            /** @var ResponseInterface $response */
+            $response = $this->httpClient->post($url, [
+                'json' => $data,
+                'headers' => [
+                    'x-api-key' => $this->apiKey,
+                    'anthropic-version' => '2023-06-01',
+                    'Content-Type' => 'application/json'
+                ],
+            ]);
 
-        $curl = curl_init();
+            $responseData = json_decode($response->getBody()->getContents(), true);
 
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => $jsonData,
-            CURLOPT_HTTPHEADER => [
-                'x-api-key: ' . $this->apiKey,
-                'anthropic-version: 2023-06-01',
-                'content-type: application/json'
-            ],
-        ]);
+            // Log the response for debugging
+            error_log(json_encode($responseData) . PHP_EOL);
 
-        $response = curl_exec($curl);
-
-        curl_close($curl);
-
-        $responseData = json_decode($response, true);
-        error_log(json_encode($responseData) . PHP_EOL);
-
-        return $responseData;
+            return $responseData ?? [];
+        } catch (GuzzleException $e) {
+            // Handle the exception and log or rethrow as needed
+            throw new \RuntimeException('Request failed: ' . $e->getMessage(), $e->getCode(), $e);
+        }
     }
 }
