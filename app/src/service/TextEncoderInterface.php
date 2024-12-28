@@ -3,5 +3,9 @@ namespace service;
 
 interface TextEncoderInterface
 {
-    public function getEmbeddings(string $document): string;
+    /**
+     * @param string $document
+     * @return string[] chunks with embeddings
+     */
+    public function getEmbeddings(string $document): array;
 }

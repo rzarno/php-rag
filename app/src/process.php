@@ -22,7 +22,7 @@ $documentProvider = new DocumentProvider();
 $generatedTextProvider = $servicesForModelFactory->getGeneratedTextProvider($model);
 $ragPromptProvider = new RAGPromptProvider();
 
-$payload = new Payload();
+$payload = (new Payload())->setUseReranking(false);
 
 $pipeline = (new Pipeline(new FingersCrossedProcessor()))
     ->pipe($promptResolver) //get prompt from POST or CLI

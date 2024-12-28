@@ -30,12 +30,14 @@ final class DocumentLoader extends AbstractDocumentRepository
             }
             //load documents to postgres database
             try {
-                $responseDocument = $this->textEncoder->getEmbeddings($document);
+                $responseDocumentsChunks = $this->textEncoder->getEmbeddings($document);
             } catch (\Throwable $e) {
                 error_log($e->getMessage());
             }
 
-            $this->insertDocument($file, $document, $responseDocument);
+            foreach ($responseDocumentsChunks as $chunk) {
+                $this->insertDocument($file, $document, $chunk);
+            }
             $this->showProgress($index, $total, $skipFirstN);
         }
         fwrite(STDOUT, "Loading documents complete\n");

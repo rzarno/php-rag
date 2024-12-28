@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace service\pipeline;
 
-
 final class Payload
 {
     private string $prompt;
@@ -11,8 +10,7 @@ final class Payload
     private array $similarDocuments;
     private array $similarDocumentsNames;
     private string $ragPrompt;
-    private string $generatedText;
-    private bool $useReranking;
+    private bool $useReranking = false;
 
     public function getPrompt(): string
     {
@@ -66,17 +64,6 @@ final class Payload
     public function setRagPrompt(string $ragPrompt): self
     {
         $this->ragPrompt = $ragPrompt;
-        return $this;
-    }
-
-    public function getGeneratedText(): string
-    {
-        return $this->generatedText;
-    }
-
-    public function setGeneratedText(string $generatedText): self
-    {
-        $this->generatedText = $generatedText;
         return $this;
     }
 

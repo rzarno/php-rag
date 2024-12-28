@@ -18,7 +18,8 @@ Abstract class AbstractOllamaAPIClient
     public function generateText(string $prompt, string $sourceDocuments): string
     {
         # prepare input
-        $input = $sourceDocuments . "\n\n##### INPUT: \n"  . $prompt . "\n##### RESPONSE:\n";
+        $input = "Source documents:\n" . $sourceDocuments . "\n\n##### INPUT: \n"  . $prompt . "\n##### RESPONSE:\n";
+        error_log("Combined RAG prompt: " . $input . PHP_EOL);
         $body = $this->request($input);
 
         $rows = preg_split('/\n/', $body);

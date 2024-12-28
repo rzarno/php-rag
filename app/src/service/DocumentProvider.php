@@ -59,7 +59,8 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
     {
         [$documents, $documentsNames] = $this->getSimilarDocuments(
             $payload->getPrompt(),
-            $payload->getEmbeddingPrompt()
+            $payload->getEmbeddingPrompt(),
+            $payload->useReranking()
         );
         $payload->setSimilarDocuments($documents);
         $payload->setSimilarDocumentsNames($documentsNames);

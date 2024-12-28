@@ -1,7 +1,6 @@
 <?php
 
 namespace service;
-use service\claude\ClaudeTextEncoder;
 use service\claude\GeneratedTextFromClaudeProvider;
 use service\gemini\GeminiTextEncoder;
 use service\gemini\GeneratedTextFromGeminiProvider;
@@ -44,7 +43,7 @@ class ServicesForSpecificModelFactory
         if (! isset($mapping[$model])) {
             throw new \Exception(sprintf('No service found for model %s', static::class));
         }
-        return new $mapping[$model];
+        return new $mapping[$model](new TextSplitter());
     }
 
 }
