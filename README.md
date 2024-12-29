@@ -4,6 +4,28 @@ A Retrieval Augmented Generation application that combines the power of Large La
 
 ![Application Demo](img/app_running.gif)
 
+## Table of Contents
+
+1. [Overview](#-overview)
+2. [Features](#-features)
+3. [Prerequisites](#-prerequisites)
+4. [Installation](#️-installation)
+5. [Usage](#-usage)
+   - [Web Interface](#web-interface)
+   - [API Endpoint](#api-endpoint)
+   - [CLI Interface](#cli-interface)
+6. [Example Outputs](#-example-outputs)
+   - [Basic Arithmetic](#basic-arithmetic)
+   - [Complex Context Analysis](#complex-context-analysis)
+7. [Architecture](#-architecture)
+   - [Basic Concept](#basic-concept)
+   - [Detailed Architecture](#detailed-architecture)
+8. [Debugging](#-debugging)
+9. [Customize](#-customize)
+10. [Resources](#-resources)
+11. [Local Ollama Setup](#-local-ollama-setup)
+12. [Contributing](#-contributing)
+
 ## 🎯 Overview
 
 This application leverages OpenAI's GPT-4 and other LLMs to generate contextually relevant responses based on user input. It searches through a database of over 1,000 websites to provide accurate information, with special handling for disambiguating between entities with identical names. It can be used for semantic search and context aware question-answering for any text dataset. 
@@ -135,6 +157,56 @@ docker-compose rm
 docker rmi -f ankane/pgvector
 docker-compose up
 ```
+
+## 🎚 Customize
+- Use different LLMs. \
+You can pick from available LLMs: `GPT-4o, Claude-3.5, Llama3.2, Mixtral, Gemini2` \
+For using other ones you can just modify model name in LLM client class for model provider, for example `app/src/service/openai/GeneratedTextFromGPTProvider.php:13`
+```php
+    final class GeneratedTextFromGPTProvider extends AbstractGPTAPIClient
+        implements StageInterface, GeneratedTextProviderInterface
+    {
+        private string $model = 'gpt-4o';
+```
+- Use different embeddings model. \
+Modify `app/src/loadDocuments.php:13` and `app/src/process.php:20`. \
+Put there one of classes that implement `TextEncoderInterface` or create yours that satisfies interface.\
+Embedding size can have impact on text matching precision. 
+- Modify system prompt. \
+Modify system prompt text in `\service\PromptResolver::getSystemPrompt()`. \
+You can add there additional instructions, example solutions (one-shot/few-shot) or some patterns of reasoning (chain of thought).
+```php
+    private function getSystemPrompt(): string
+    {
+        return 'You are a helpful assistant that answers questions based on source documents.' . PHP_EOL;
+    }
+```
+- Use different number of retrieved documents. \
+Change `$limit` in `DocumentProvider::getSimilarDocuments()`
+```php
+    public function getSimilarDocuments(
+        string $prompt,
+        string $embeddingPrompt,
+        bool $useReranking = false,
+        int $limit = 10,
+        string $distanceFunction = 'l2'
+    ) {
+```
+- Use reranking. \
+If too many documents are passed to LLM it may focus on wrong information. If number is too small on the other hand it's possible to miss most important sources.\
+Set `Payload::$useReranking` to `True` in `app/src/process.php:25`.
+- Use different text matching algorithm. \
+Change `$distanceFunction` in `DocumentProvider::getSimilarDocuments()`. \
+Pick one from l2|cosine|innerProduct or support other one (see https://github.com/pgvector/pgvector, section "Quering").
+```php
+    public function getSimilarDocuments(
+        string $prompt,
+        string $embeddingPrompt,
+        bool $useReranking = false,
+        int $limit = 10,
+        string $distanceFunction = 'l2'
+    ) {
+```    
 
 ## 📚 Resources
 

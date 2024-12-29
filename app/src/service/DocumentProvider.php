@@ -8,12 +8,23 @@ use service\pipeline\Payload;
 
 final class DocumentProvider extends AbstractDocumentRepository implements StageInterface
 {
+    /**
+     * @param string $prompt
+     * @param string $embeddingPrompt
+     * @param bool $useReranking
+     * @param int $limit
+     * @param string $distanceFunction l2|cosine|innerProduct
+     * @return array
+     */
     public function getSimilarDocuments(
         string $prompt,
         string $embeddingPrompt,
-        bool $useReranking = false
+        bool $useReranking = false,
+        int $limit = 10,
+        string $distanceFunction = 'l2'
     ): array {
-        $stmt = $this->connection->prepare("SELECT name, text from document order by embedding <-> :embeddingPrompt limit 10;");
+        $query = $this->getQueryForDistanceFunction($distanceFunction, $limit);
+        $stmt = $this->connection->prepare($query);
         $stmt->execute(['embeddingPrompt' => $embeddingPrompt]);
         $documents = $stmt->fetchAll();
         error_log('RETRIEVED DOCUMENTS:'. PHP_EOL);
@@ -49,6 +60,37 @@ final class DocumentProvider extends AbstractDocumentRepository implements Stage
         }
         krsort($documentsReranked);
         return $documentsReranked;
+    }
+
+    private function getQueryForDistanceFunction(
+        string $distanceFunction,
+        int $limit = 10
+    ): string {
+        switch ($distanceFunction) {
+            case 'l2':
+                return $this->getQueryForL2Distance($limit);
+            case 'cosine':
+                return $this->getQueryForCosineDistance($limit);
+            case 'innerProduct':
+                return $this->getQueryForInnerProduct($limit);
+            default:
+               throw new \LogicException('Unknown distance function: ' . $distanceFunction);
+        }
+    }
+
+    private function getQueryForL2Distance(int $limit = 10): string
+    {
+        return "SELECT name, text from document order by embedding <-> :embeddingPrompt limit {$limit};";
+    }
+
+    private function getQueryForCosineDistance(int $limit = 10): string
+    {
+        return "SELECT name, text from document order by 1 - (embedding <=> :embeddingPrompt) limit {$limit};";
+    }
+
+    private function getQueryForInnerProduct(int $limit = 10): string
+    {
+        return "SELECT name, text from document order by (embedding <#> :embeddingPrompt) * -1 limit {$limit};";
     }
 
     /**

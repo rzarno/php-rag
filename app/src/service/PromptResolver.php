@@ -10,7 +10,8 @@ final class PromptResolver implements StageInterface
 {
     public function getPromptFromInput(): string
     {
-        $prompt = $_POST['prompt'] ?? null;
+        $prompt = $this->getSystemPrompt();
+        $prompt .= $_POST['prompt'] ?? null;
         if (! $prompt) {
             $prompt = $argv[0] ?? null;
         }
@@ -27,5 +28,10 @@ final class PromptResolver implements StageInterface
     public function __invoke($payload)
     {
         return $payload->setPrompt($this->getPromptFromInput());
+    }
+
+    private function getSystemPrompt(): string
+    {
+        return 'You are a helpful assistant that answers questions based on source documents.' . PHP_EOL;
     }
 }
